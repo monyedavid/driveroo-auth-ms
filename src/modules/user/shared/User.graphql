@@ -1,0 +1,4 @@
+type Userr {
+  id: ID!
+  email: String!
+}

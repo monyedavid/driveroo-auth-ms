@@ -1,0 +1,8 @@
+type Query {
+  bye3: String
+}
+
+type Mutation {
+  sendForgotPasswordEmail(email: String!): [Error!]
+  forgotPasswordChange(newPassword: String!, key: String!): [Error!]
+}
