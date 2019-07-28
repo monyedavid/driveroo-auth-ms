@@ -1,7 +1,7 @@
 {
     "name": "@driveroo/authentication-servers",
-    "version": "0.0.1",
-    "description": "Awesome project developed with TypeORM.",
+    "version": "1.0.0",
+    "description": "Driveroo Authentication Server.",
     "devDependencies": {
         "@gql2ts/types": "^1.9.0",
         "@types/bcryptjs": "^2.4.2",
@@ -65,8 +65,9 @@
     },
     "scripts": {
         "start": "ts-node --files src/index.ts",
-        "dev": "NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
+        "start:dev": "NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
         "test": "NODE_ENV=test jest --watch --detectOpenHandles --no-cache",
+        "build:server": "rimraf ./build && tsc && copyfiles src/**/*.graphql build",
         "gen-schema-types": "ts-node --files src/scripts/createTypes.ts",
         "mailer": "ts-node src/mail/index.ts"
     },

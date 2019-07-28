@@ -6,109 +6,115 @@ import * as connectRedis from "connect-redis";
 import * as RateLimit from "express-rate-limit";
 import * as RateLimitRedisStore from "rate-limit-redis";
 import * as passport from "passport";
+import * as mongoose from "mongoose";
 
 import { GraphQLServer } from "graphql-yoga";
-import { creatTypeormConnection } from "./utils/createTpeconn";
+
 import { redis } from "./cache";
 import { confirmEmamil } from "./routes/confirmEmail";
 import { genschema } from "./utils/generateSchema";
 import { redisessionprefix } from "./constant";
-import { Connection } from "typeorm";
+
 import { oauthConfig } from "./Auth";
-import { createTestConn } from "./test-utils/createTestConn";
 
 const RedisStore = connectRedis(session);
-const sessionSecret = "SECETEJAGDJVSHSKYG";
+const sessionSecret = process.env.SESSION_SECRET as string;
+const inProd = process.env.NODE_ENV === "production";
 
 export const startServer = async () => {
-	if (process.env.NODE_ENV === "test") {
-		await redis.flushall();
-	}
-	// Graphql Server
-	const server = new GraphQLServer({
-		schema: genschema(),
-		context: ({ request }) => ({
-			redis,
-			url: request.protocol + "://" + request.get("host"),
-			session: request.session,
-			req: request
-		})
-	});
+    // ESTABLISH MONGOOSE CONNECTIONS
+    mongoose
+        .connect(process.env.DATABASE_URL, {
+            useNewUrlParser: true,
+            useCreateIndex: true
+        })
+        .then(() => console.log("MDB connected"))
+        .catch(err => console.log(err));
 
-	// Rate Limiting
-	server.express.use(
-		new RateLimit({
-			store: new RateLimitRedisStore({
-				client: redis as any
-			}),
-			windowMs: 15 * 60 * 1000, // 15 minutes
-			max: 100 // limit each IP to 100 requests per windowMs
-		})
-	);
+    // Graphql Server
+    const server = new GraphQLServer({
+        schema: genschema(),
+        context: ({ request }) => ({
+            redis,
+            url: request.protocol + "://" + request.get("host"),
+            session: request.session,
+            req: request
+        })
+    });
 
-	// session redis config
-	server.express.use(
-		session({
-			store: new RedisStore({
-				client: redis as any,
-				prefix: redisessionprefix
-			}),
-			name: "#BOT",
-			secret: sessionSecret,
-			resave: false,
-			saveUninitialized: false,
-			cookie: {
-				httpOnly: true,
-				secure: process.env.NODE_ENV === "production",
-				maxAge: 1000 * 60 * 60 * 24 * 7
-			}
-		})
-	);
+    // Rate Limiting
+    server.express.use(
+        new RateLimit({
+            store: new RateLimitRedisStore({
+                client: redis as any
+            }),
+            windowMs: 15 * 60 * 1000, // 15 minutes
+            max: 100 // limit each IP to 100 requests per windowMs
+        })
+    );
 
-	const cors = {
-		credentials: true,
-		origin:
-			process.env.NODE_ENV === "test"
-				? "*"
-				: (process.env.FRONTEND_HOST as string)
-	};
+    // session redis config
+    // session redis config
+    server.express.set("trust proxy", 1); // trust first proxy
+    server.express.use(
+        session({
+            store: new RedisStore({
+                client: redis as any,
+                prefix: redisessionprefix
+            }),
+            name: "DRIVER#BOT",
+            secret: sessionSecret,
+            resave: false,
+            saveUninitialized: true,
+            cookie: {
+                httpOnly: !inProd,
+                maxAge: 1000 * 60 * 60 * 24 * 7,
+                secure: false
+            }
+        })
+    );
 
-	server.express // GRAPHQL EXPRESS SERVER SETUP
-		.get("/confirm/:id", confirmEmamil);
+    const cors = {
+        credentials: true,
+        origin:
+            process.env.NODE_ENV === "test"
+                ? "*"
+                : (process.env.FRONTEND_HOST as string)
+    };
 
-	// CREATE TYPEORM CONNECTION BASED ON PROCCESS.ENV{SETUP TEST DEV DB}
-	const conn: Connection =
-		process.env.NODE_ENV === "test"
-			? await createTestConn(true)
-			: await creatTypeormConnection();
+    server.express // GRAPHQL EXPRESS SERVER SETUP
+        .get("/confirm/:id", confirmEmamil);
 
-	// Oauth || TWITTER
-	oauthConfig(conn);
-	/**
-   * @desc   Initialize passport
-   */
-	server.express.use(passport.initialize());
+    // Oauth || TWITTER
+    // oauthConfig(conn);
 
-	// Hnadle Twitter OA-uth:
-	server.express.get("/auth/twitter", passport.authenticate("twitter"));
+    /**
+     * @desc   Initialize passport
+     */
+    server.express.use(passport.initialize());
 
-	server.express.get(
-		"/auth/twitter/callback",
-		passport.authenticate("twitter", {
-			// failureRedirect: "/login",
-			session: false
-		}),
-		(req, res) => {
-			(req.session as any).userId = (req.user as any).id;
-			// @redirect to fromtend
-			res.redirect("/");
-		}
-	);
+    // Hnadle Twitter OA-uth:
+    server.express.get("/auth/twitter", passport.authenticate("twitter"));
 
-	const app = await server.start({
-		cors,
-		port: process.env.NODE_ENV === "test" ? 0 : 4000
-	});
-	console.log("Server is running on localhost:4000");
-	return app;
+    server.express.get(
+        "/auth/twitter/callback",
+        passport.authenticate("twitter", {
+            // failureRedirect: "/login",
+            session: false
+        }),
+        (req, res) => {
+            (req.session as any).userId = (req.user as any).id;
+            // @redirect to fromtend
+            res.redirect("/");
+        }
+    );
+
+    const port = process.env.PORT || 4000;
+
+    const app = await server.start({
+        cors,
+        port
+    });
+    console.log("Server is running on localhost:4000");
+    return app;
 };
