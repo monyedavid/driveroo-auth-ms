@@ -3,7 +3,7 @@ import * as bcrypt from "bcryptjs";
 const Schema = mongoose.Schema;
 
 // Create Schema
-const DriverSchema = new Schema(
+const AdminSchema = new Schema(
     {
         firstName: {
             type: String,
@@ -50,11 +50,11 @@ const hashedPassword = async (password: string) => {
     return await bcrypt.hash(password, 10);
 };
 
-DriverSchema.pre("save", async function() {
+AdminSchema.pre("save", async function() {
     if (this.isNew) {
         const newpassword = await hashedPassword((this as any).password);
         (this as any).password = newpassword;
     }
 });
 
-export const DriverModel = mongoose.model("DriverUsers", DriverSchema);
+export const AdminModel = mongoose.model("DriverUsers", AdminSchema);
