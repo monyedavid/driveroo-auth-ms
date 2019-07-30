@@ -27,11 +27,6 @@ bye2: string | null;
 dummy: string | null;
 me: IUser | null;
 bye: string | null;
-hello: string;
-}
-
-interface IHelloOnQueryArguments {
-name?: string | null;
 }
 
 interface IUser {
@@ -64,14 +59,28 @@ password: string;
 }
 
 interface IRegisterOnMutationArguments {
-email: string;
-password: string;
+params: IRegParams;
 }
 
 interface IError {
 __typename: "Error";
 path: string;
 message: string;
+}
+
+interface IRegParams {
+__typename: "reg_Params";
+email: string;
+password: string;
+firstName: string;
+lastName: string;
+mobile: string;
+}
+
+interface IUserr {
+__typename: "Userr";
+id: string;
+email: string;
 }
 }
 

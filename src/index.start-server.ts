@@ -83,7 +83,7 @@ export const startServer = async () => {
     };
 
     server.express // GRAPHQL EXPRESS SERVER SETUP
-        .get("/confirm/:id", confirmEmamil);
+        .get("/confirm/:type/:id", confirmEmamil);
 
     // Oauth || TWITTER
     // oauthConfig(conn);

@@ -5,6 +5,11 @@ const Schema = mongoose.Schema;
 // Create Schema
 const UserSchema = new Schema(
     {
+        active: {
+            type: Boolean,
+            required: true,
+            default: true
+        },
         firstName: {
             type: String,
             required: true

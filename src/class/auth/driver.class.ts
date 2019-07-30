@@ -1,10 +1,16 @@
+import { Auth } from "./auth.main.class";
+
 export class DriverAuth {
     url: string;
-    constructor(url: string) {
+    constructor(url?: string) {
         this.url = url;
     }
 
-    async register(params: any) {}
+    async register(params: AUTH.IRegister) {
+        const service = new Auth();
+        const result = await service.register(params, "driver");
+        console.log(result);
+    }
 
     async login(params: any) {}
 

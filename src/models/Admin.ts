@@ -5,6 +5,11 @@ const Schema = mongoose.Schema;
 // Create Schema
 const AdminSchema = new Schema(
     {
+        active: {
+            type: Boolean,
+            required: true,
+            default: true
+        },
         firstName: {
             type: String,
             required: true
@@ -57,4 +62,4 @@ AdminSchema.pre("save", async function() {
     }
 });
 
-export const AdminModel = mongoose.model("DriverUsers", AdminSchema);
+export const AdminModel = mongoose.model("AdminUsers", AdminSchema);

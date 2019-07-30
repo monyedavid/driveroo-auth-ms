@@ -5,12 +5,13 @@ import { createMiddleWare } from "../../../utils/createMiddleWare";
 import middleware from "./middleware";
 
 export const resolvers: ResolverMap = {
-	Query: {
-		me: createMiddleWare(middleware, async (_, __, { session }) => {
-			const me: User = await User.findOne({
-				where: { id: session.userId }
-			});
-			return me;
-		})
-	}
+    Query: {
+        me: createMiddleWare(middleware, async (_, __, { session }) => {
+            // const me: User = await User.findOne({
+            // 	where: { id: session.userId }
+            // });
+            // return me;
+            return null;
+        })
+    }
 };

@@ -1,7 +1,15 @@
 type Query {
-  bye: String
+    bye: String
 }
 
 type Mutation {
-  register(email: String!, password: String!): [Error!]
+    register(params: reg_Params!): [Error!]
+}
+
+type reg_Params {
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    mobile: String!
 }
