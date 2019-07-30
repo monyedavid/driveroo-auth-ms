@@ -60,6 +60,7 @@ password: string;
 
 interface IRegisterOnMutationArguments {
 params: IRegParams;
+model: string;
 }
 
 interface IError {

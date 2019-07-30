@@ -1,5 +1,5 @@
 import { ResolverMap } from "../../../types/graphql-utile";
-import { DriverAuth } from "../../../class/auth/driver.class";
+import { Auth } from "../../../class/auth/auth.main.class";
 
 export const resolvers: ResolverMap = {
     Query: {
@@ -12,8 +12,22 @@ export const resolvers: ResolverMap = {
             args: GQL.IRegisterOnMutationArguments,
             { url }
         ) => {
-            const service = new DriverAuth(url);
-            await service.register(args.params);
+            const service = new Auth(url);
+            if (args.model === "driver")
+                return await service.register(args.params, "driver");
+
+            if (args.model === "admin")
+                return await service.register(args.params, "admin");
+
+            if (args.model === "user")
+                return await service.register(args.params, "user");
+
+            return [
+                {
+                    path: "Register",
+                    message: "Unknown Model | For the developer"
+                }
+            ];
         }
     }
 };
