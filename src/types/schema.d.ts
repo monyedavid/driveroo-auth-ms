@@ -69,7 +69,6 @@ message: string;
 }
 
 interface IRegParams {
-__typename: "reg_Params";
 email: string;
 password: string;
 firstName: string;

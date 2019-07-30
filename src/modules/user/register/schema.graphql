@@ -6,7 +6,7 @@ type Mutation {
     register(params: reg_Params!): [Error!]
 }
 
-type reg_Params {
+input reg_Params {
     email: String!
     password: String!
     firstName: String!

@@ -1,5 +1,3 @@
-// import { IResolvers } from "graphql-tools";
-import { User } from "../../../entity/User";
 import { ResolverMap } from "../../../types/graphql-utile";
 import { createMiddleWare } from "../../../utils/createMiddleWare";
 import middleware from "./middleware";
