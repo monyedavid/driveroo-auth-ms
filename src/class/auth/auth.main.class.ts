@@ -64,7 +64,7 @@ export class Auth {
         );
         // console.log(url, "THIS URL GEN. FROM START_SERVER()")
         // console.log(link,)
-        return { ok: true };
+        return [{ ok: true, path: "Register", message: "success" }];
     }
 
     async login(

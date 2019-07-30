@@ -1,4 +1,5 @@
-type Error {
+type def_Response {
+    ok: Boolean
     path: String!
     message: String!
 }

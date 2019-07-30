@@ -65,6 +65,7 @@ model: string;
 
 interface IError {
 __typename: "Error";
+ok: boolean | null;
 path: string;
 message: string;
 }
