@@ -41,7 +41,7 @@ sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IError> | null;
 logout: boolean | null;
-register: Array<IError> | null;
+register: Array<IDefResponse> | null;
 }
 
 interface ISendForgotPasswordEmailOnMutationArguments {
@@ -65,7 +65,6 @@ model: string;
 
 interface IError {
 __typename: "Error";
-ok: boolean | null;
 path: string;
 message: string;
 }
@@ -76,6 +75,13 @@ password: string;
 firstName: string;
 lastName: string;
 mobile: string;
+}
+
+interface IDefResponse {
+__typename: "def_Response";
+ok: boolean | null;
+path: string;
+message: string;
 }
 
 interface IUserr {
