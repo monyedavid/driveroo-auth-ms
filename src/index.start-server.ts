@@ -24,7 +24,7 @@ const inProd = process.env.NODE_ENV === "production";
 export const startServer = async () => {
     // ESTABLISH MONGOOSE CONNECTIONS
     mongoose
-        .connect(process.env.DATABASE_URL, {
+        .connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useCreateIndex: true
         })
