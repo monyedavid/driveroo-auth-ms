@@ -27,7 +27,7 @@ export class Auth {
         this.url = url;
     }
 
-    async register(body: AUTH.IRegister, model: string) {
+    async register(body: AUTH.IRegister, model: AUTH.model) {
         const { email } = body;
 
         try {
@@ -64,7 +64,7 @@ export class Auth {
         );
         // console.log(url, "THIS URL GEN. FROM START_SERVER()")
         // console.log(link,)
-        return null;
+        return { ok: true };
     }
 
     async login(

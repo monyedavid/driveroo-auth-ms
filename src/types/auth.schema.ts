@@ -14,4 +14,6 @@ declare namespace AUTH {
         email: string;
         password: string;
     }
+
+    type model = "user" | "admin" | "driver";
 }

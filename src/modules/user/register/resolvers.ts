@@ -10,9 +10,9 @@ export const resolvers: ResolverMap = {
         register: async (
             _,
             args: GQL.IRegisterOnMutationArguments,
-            { redis, url }
+            { url }
         ) => {
-            const service = new DriverAuth();
+            const service = new DriverAuth(url);
             await service.register(args.params);
         }
     }
