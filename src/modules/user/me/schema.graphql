@@ -1,8 +1,19 @@
 type User {
-  id: ID!
-  email: String!
+    active: Boolean
+    firstName: String
+    lastName: String
+    mobile: String
+    email: String
+    avatar: String
 }
 
+type me_data {
+    user: User
+    token: String
+}
+
+union me_response = me_data | Error
+
 type Query {
-  me: User
+    me: me_response
 }

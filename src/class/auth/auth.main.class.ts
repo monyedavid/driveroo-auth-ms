@@ -13,6 +13,7 @@ import Models from "../../models/main.models.exports";
 import { subject, confirmation } from "../../constants/registration.messages";
 import { confirmEmailError, userseesionidPrefix } from "../../constant";
 import { Session } from "../../types/graphql-utile";
+import { signTokenStore } from "../../utils/generateTohen";
 
 const erroresponse = [
     {
@@ -161,6 +162,12 @@ export class Auth {
         session.userId = user._id;
         session.userfullname = `${user.firstName} ${user.lastName}`;
         session.mobile = user.mobile;
+        session.model = model ? model : multipleUser[0].model;
+        session.token = await signTokenStore({
+            _id: user._id,
+            userfullname: `${user.firstName} ${user.lastName}`,
+            mobile: user.mobile
+        });
         if (sessionID) {
             await redis.lpush(`${userseesionidPrefix}${user.id}`, sessionID);
         }
@@ -168,7 +175,36 @@ export class Auth {
         return { ok: true };
     }
 
-    public async me(body: any) {}
+    public async me(session: Session) {
+        if (session.userId && session.model) {
+            const user = await Models[session.model].findOne({
+                _id: session.userId
+            });
+
+            if (user) {
+                return {
+                    ok: true,
+                    user: {
+                        active: user.active,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        mobile: user.mobile,
+                        email: user.email,
+                        avatar: user.avatar
+                    },
+                    token: session.token
+                };
+            }
+        }
+
+        return {
+            ok: false,
+            error: {
+                path: "me",
+                message: "No user is logged in, please log in to continue"
+            }
+        };
+    }
 
     public async logout(body: any) {}
 
