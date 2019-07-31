@@ -3,3 +3,9 @@ type def_Response {
     path: String!
     message: String!
 }
+
+type def_Login_Response {
+    path: String!
+    message: String!
+    model: String
+}

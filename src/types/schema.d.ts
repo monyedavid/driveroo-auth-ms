@@ -56,6 +56,7 @@ key: string;
 interface ILoginOnMutationArguments {
 email: string;
 password: string;
+model?: string | null;
 }
 
 interface IRegisterOnMutationArguments {
@@ -82,6 +83,13 @@ __typename: "def_Response";
 ok: boolean | null;
 path: string;
 message: string;
+}
+
+interface IDefLoginResponse {
+__typename: "def_Login_Response";
+path: string;
+message: string;
+model: string | null;
 }
 
 interface IUserr {

@@ -74,24 +74,66 @@ export class Auth {
         sessionID: string
     ) {
         const { email, password } = body;
+        let user;
+        let multipleUser = [];
 
-        const user = await Models[model].findOne({
-            email
-        });
+        if (model)
+            user = await Models[model].findOne({
+                email
+            });
+
+        if (!model) {
+            let possible_user;
+
+            possible_user = await Models["admin"].findOne({ email });
+            // multipleUser
+            if (possible_user)
+                multipleUser.push({ userdata: possible_user, model: "admin" });
+
+            possible_user = await Models["user"].findOne({ email });
+            // multipleUser
+            if (possible_user)
+                multipleUser.push({ userdata: possible_user, model: "user" });
+
+            possible_user = await Models["driver"].findOne({ email });
+            // multipleUser
+            if (possible_user)
+                multipleUser.push({ userdata: possible_user, model: "driver" });
+
+            if (multipleUser.length === 0) {
+                return { ok: false, error: erroresponse };
+            }
+
+            // check if multipleUser > 1
+            if (multipleUser.length === 1) {
+                user = multipleUser[0].userdata;
+            }
+
+            if (multipleUser.length > 1) {
+                const response = [];
+                multipleUser.forEach(userObj => {
+                    response.push({
+                        path: "Login",
+                        message: "Multplie Accounts Detected",
+                        model: userObj.model
+                    });
+                });
+            }
+        }
 
         if (!user) {
-            return erroresponse;
+            return { ok: false, error: erroresponse };
         }
 
         const valid = await bcrypt.compare(password, user.password);
 
         if (!valid) {
-            return erroresponse;
+            return { ok: false, error: erroresponse };
         }
 
         if (!user.confirmed) {
             return {
-                ok: true,
+                ok: false,
                 error: [
                     {
                         path: "email",
@@ -118,6 +160,7 @@ export class Auth {
 
         session.userId = user._id;
         session.userfullname = `${user.firstName} ${user.lastName}`;
+        session.mobile = user.mobile;
         if (sessionID) {
             await redis.lpush(`${userseesionidPrefix}${user.id}`, sessionID);
         }

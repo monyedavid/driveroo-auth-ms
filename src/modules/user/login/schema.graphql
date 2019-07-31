@@ -1,7 +1,11 @@
 type Query {
-  bye2: String
+    bye2: String
 }
 
 type Mutation {
-  login(email: String!, password: String!): [Error!]
+    login(
+        email: String!
+        password: String!
+        model: String
+    ): [def_Login_Response!]
 }
