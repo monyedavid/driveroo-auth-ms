@@ -14,8 +14,11 @@ import { redis } from "./cache";
 import { confirmEmamil } from "./routes/confirmEmail";
 import { genschema } from "./utils/generateSchema";
 import { redisessionprefix } from "./constant";
+import api from "./api/index";
 
-import { oauthConfig } from "./Auth";
+// import { oauthConfig } from "./Auth";
+// Oauth || TWITTER
+// oauthConfig(conn);
 
 const RedisStore = connectRedis(session);
 const sessionSecret = process.env.SESSION_SECRET as string;
@@ -62,7 +65,7 @@ export const startServer = async () => {
                 client: redis as any,
                 prefix: redisessionprefix
             }),
-            name: "DRIVER#BOT",
+            name: "DRIVERBOT",
             secret: sessionSecret,
             resave: false,
             saveUninitialized: true,
@@ -74,19 +77,21 @@ export const startServer = async () => {
         })
     );
 
-    const cors = {
-        credentials: true,
-        origin:
-            process.env.NODE_ENV === "test"
-                ? "*"
-                : (process.env.FRONTEND_HOST as string)
+    const uilocal = process.env.LOCAL_HOST;
+    const ui = process.env.FRONTEND_HOST;
+    const whiteList = [uilocal, ui];
+    const multiCors = (req, callback) => {
+        let corsOptions;
+        if (whiteList.indexOf(req.header("Origin")) !== -1) {
+            corsOptions = { credentials: true, origin: true }; // reflect (enable) the requested origin in the CORS response
+        } else {
+            corsOptions = { origin: false }; // disable CORS for this request
+        }
+        callback(null, corsOptions); // callback expects two parameters: error and options
     };
 
     server.express // GRAPHQL EXPRESS SERVER SETUP
         .get("/confirm/:type/:id", confirmEmamil);
-
-    // Oauth || TWITTER
-    // oauthConfig(conn);
 
     /**
      * @desc   Initialize passport
@@ -109,12 +114,15 @@ export const startServer = async () => {
         }
     );
 
+    server.express.use(api);
+
     const port = process.env.PORT || 4000;
 
     const app = await server.start({
-        cors,
+        cors: multiCors,
         port
-    });
-    console.log("Server is running on localhost:4000");
+    } as any);
+
+    console.log(`Server is running on localhost:${port}`);
     return app;
 };

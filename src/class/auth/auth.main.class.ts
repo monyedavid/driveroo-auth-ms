@@ -168,6 +168,8 @@ export class Auth {
             userfullname: `${user.firstName} ${user.lastName}`,
             mobile: user.mobile
         });
+
+        console.log(session, "Session data");
         if (sessionID) {
             await redis.lpush(`${userseesionidPrefix}${user.id}`, sessionID);
         }

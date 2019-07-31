@@ -9,7 +9,7 @@ export const resolvers: ResolverMap = {
             const service = new Auth();
             const result = await service.me(session);
             if (!result.ok) {
-                result.error;
+                return result.error;
             }
 
             if (result.ok)

@@ -25,21 +25,41 @@ __typename: "Query";
 bye3: string | null;
 bye2: string | null;
 dummy: string | null;
-me: IUser | null;
+me: me_response | null;
 bye: string | null;
+}
+
+type me_response = IMeData | IError;
+
+
+
+interface IMeData {
+__typename: "me_data";
+user: IUser | null;
+token: string | null;
 }
 
 interface IUser {
 __typename: "User";
-id: string;
-email: string;
+active: boolean | null;
+firstName: string | null;
+lastName: string | null;
+mobile: string | null;
+email: string | null;
+avatar: string | null;
+}
+
+interface IError {
+__typename: "Error";
+path: string;
+message: string;
 }
 
 interface IMutation {
 __typename: "Mutation";
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
-login: Array<IError> | null;
+login: Array<IDefLoginResponse> | null;
 logout: boolean | null;
 register: Array<IDefResponse> | null;
 }
@@ -64,10 +84,11 @@ params: IRegParams;
 model: string;
 }
 
-interface IError {
-__typename: "Error";
+interface IDefLoginResponse {
+__typename: "def_Login_Response";
 path: string;
 message: string;
+model: string | null;
 }
 
 interface IRegParams {
@@ -83,13 +104,6 @@ __typename: "def_Response";
 ok: boolean | null;
 path: string;
 message: string;
-}
-
-interface IDefLoginResponse {
-__typename: "def_Login_Response";
-path: string;
-message: string;
-model: string | null;
 }
 
 interface IUserr {
