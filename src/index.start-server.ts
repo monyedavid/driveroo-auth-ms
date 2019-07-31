@@ -68,7 +68,7 @@ export const startServer = async () => {
             name: "DRIVERBOT",
             secret: sessionSecret,
             resave: false,
-            saveUninitialized: true,
+            saveUninitialized: false,
             cookie: {
                 httpOnly: !inProd,
                 maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -76,19 +76,6 @@ export const startServer = async () => {
             }
         })
     );
-
-    const uilocal = process.env.LOCAL_HOST;
-    const ui = process.env.FRONTEND_HOST;
-    const whiteList = [uilocal, ui];
-    const multiCors = (req, callback) => {
-        let corsOptions;
-        if (whiteList.indexOf(req.header("Origin")) !== -1) {
-            corsOptions = { credentials: true, origin: true }; // reflect (enable) the requested origin in the CORS response
-        } else {
-            corsOptions = { origin: false }; // disable CORS for this request
-        }
-        callback(null, corsOptions); // callback expects two parameters: error and options
-    };
 
     server.express // GRAPHQL EXPRESS SERVER SETUP
         .get("/confirm/:type/:id", confirmEmamil);
@@ -114,14 +101,14 @@ export const startServer = async () => {
         }
     );
 
-    server.express.use(api);
+    server.express.use("/api/v1", api);
 
     const port = process.env.PORT || 4000;
 
     const app = await server.start({
-        cors: multiCors,
+        cors: { credentials: true, origin: "http://localhost:4000" },
         port
-    } as any);
+    });
 
     console.log(`Server is running on localhost:${port}`);
     return app;

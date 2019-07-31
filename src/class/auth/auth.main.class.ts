@@ -169,7 +169,6 @@ export class Auth {
             mobile: user.mobile
         });
 
-        console.log(session, "Session data");
         if (sessionID) {
             await redis.lpush(`${userseesionidPrefix}${user.id}`, sessionID);
         }
@@ -178,6 +177,7 @@ export class Auth {
     }
 
     public async me(session: Session) {
+        console.log(session);
         if (session.userId && session.model) {
             const user = await Models[session.model].findOne({
                 _id: session.userId
