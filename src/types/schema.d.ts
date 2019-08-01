@@ -57,11 +57,16 @@ message: string;
 
 interface IMutation {
 __typename: "Mutation";
+updateProfile: driver_Response | null;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IDefLoginResponse> | null;
 logout: boolean | null;
 register: Array<IDefResponse> | null;
+}
+
+interface IUpdateProfileOnMutationArguments {
+params: IUpDriverParams;
 }
 
 interface ISendForgotPasswordEmailOnMutationArguments {
@@ -84,6 +89,43 @@ params: IRegParams;
 model: string;
 }
 
+interface IUpDriverParams {
+dob?: string | null;
+mothers_maiden_name?: string | null;
+primary_location?: IDuLocation | null;
+secondary_location?: IDuLocation | null;
+tertiary_location?: IDuLocation | null;
+bvn?: string | null;
+}
+
+interface IDuLocation {
+__typename: "du_Location";
+address: string | null;
+landmark: string | null;
+city: string | null;
+state: string | null;
+}
+
+type driver_Response = IDriver | IError;
+
+
+
+interface IDriver {
+__typename: "Driver";
+active: boolean | null;
+firstName: string | null;
+lastName: string | null;
+mobile: string | null;
+email: string | null;
+avatar: string | null;
+dob: string | null;
+mothers_maiden_name: string | null;
+primary_location: IDuLocation | null;
+secondary_location: IDuLocation | null;
+tertiary_location: IDuLocation | null;
+bvn: string | null;
+}
+
 interface IDefLoginResponse {
 __typename: "def_Login_Response";
 path: string;
@@ -104,6 +146,13 @@ __typename: "def_Response";
 ok: boolean | null;
 path: string;
 message: string;
+}
+
+interface IUpDriverParamsLocation {
+address?: string | null;
+landmark?: string | null;
+city?: string | null;
+state?: string | null;
 }
 
 interface IUserr {
