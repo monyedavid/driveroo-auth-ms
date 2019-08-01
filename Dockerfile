@@ -9,12 +9,12 @@ RUN npm i -g reflect-metadata
 RUN yarn install
 
 COPY ./build  ./build
-COPY ./.env  ./.env
+COPY ./.env  .
 
-WORKDIR ./build
+WORKDIR .
 
 ENV NODE_ENV production
 
 EXPOSE 4000
 
-CMD ["node", "index.js"]
+CMD ["node", "build/index.js"]
