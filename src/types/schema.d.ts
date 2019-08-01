@@ -35,9 +35,11 @@ type me_response = IMeData | IError;
 
 interface IMeData {
 __typename: "me_data";
-user: IUser | null;
+user: User | null;
 token: string | null;
 }
+
+type User = IDriver;
 
 interface IUser {
 __typename: "User";
@@ -90,20 +92,19 @@ model: string;
 }
 
 interface IUpDriverParams {
-dob?: string | null;
-mothers_maiden_name?: string | null;
-primary_location?: IDuLocation | null;
-secondary_location?: IDuLocation | null;
-tertiary_location?: IDuLocation | null;
-bvn?: string | null;
+dob: string;
+mothers_maiden_name: string;
+primary_location: IUpDriverParamsLocation;
+secondary_location: IUpDriverParamsLocation;
+tertiary_location: IUpDriverParamsLocation;
+bvn: string;
 }
 
-interface IDuLocation {
-__typename: "du_Location";
-address: string | null;
-landmark: string | null;
-city: string | null;
-state: string | null;
+interface IUpDriverParamsLocation {
+address: string;
+landmark: string;
+city: string;
+state: string;
 }
 
 type driver_Response = IDriver | IError;
@@ -126,6 +127,14 @@ tertiary_location: IDuLocation | null;
 bvn: string | null;
 }
 
+interface IDuLocation {
+__typename: "du_Location";
+address: string | null;
+landmark: string | null;
+city: string | null;
+state: string | null;
+}
+
 interface IDefLoginResponse {
 __typename: "def_Login_Response";
 path: string;
@@ -146,13 +155,6 @@ __typename: "def_Response";
 ok: boolean | null;
 path: string;
 message: string;
-}
-
-interface IUpDriverParamsLocation {
-address?: string | null;
-landmark?: string | null;
-city?: string | null;
-state?: string | null;
 }
 
 interface IUserr {

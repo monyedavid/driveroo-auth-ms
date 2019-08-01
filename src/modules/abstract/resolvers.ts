@@ -16,7 +16,15 @@ export const resolvers: ResolverMap = {
                 return "Error";
             }
 
-            return "me_data";
+            return "Driver";
+        }
+    },
+    User: {
+        __resolveType: obj => {
+            switch (obj.type) {
+                default:
+                    return "Driver";
+            }
         }
     }
 };

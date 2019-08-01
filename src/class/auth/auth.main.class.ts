@@ -177,7 +177,6 @@ export class Auth {
     }
 
     public async me(session: Session) {
-        console.log(session);
         if (session.userId && session.model) {
             const user = await Models[session.model].findOne({
                 _id: session.userId

@@ -29,7 +29,8 @@ export const startServer = async () => {
     mongoose
         .connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false
         })
         .then(() => console.log("MDB connected"))
         .catch(err => console.log(err));

@@ -6,10 +6,10 @@ type du_Location {
 }
 
 input up_Driver_Params_Location {
-    address: String
-    landmark: String
-    city: String
-    state: String
+    address: String!
+    landmark: String!
+    city: String!
+    state: String!
 }
 
 type Driver implements User {
@@ -28,10 +28,10 @@ type Driver implements User {
 }
 
 input up_Driver_Params {
-    dob: String
-    mothers_maiden_name: String
-    primary_location: du_Location
-    secondary_location: du_Location
-    tertiary_location: du_Location
-    bvn: String
+    dob: String!
+    mothers_maiden_name: String!
+    primary_location: up_Driver_Params_Location!
+    secondary_location: up_Driver_Params_Location!
+    tertiary_location: up_Driver_Params_Location!
+    bvn: String!
 }
