@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "ES6",
         "module": "commonjs",
-        "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
         "sourceMap": true,
         "outDir": "./build",
         "moduleResolution": "node",
@@ -19,6 +18,6 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
     },
-    "exclude": ["node_modules"],
-    "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+    "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+    "exclude": ["node_modules"]
 }
