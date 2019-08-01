@@ -1,0 +1,37 @@
+type du_Location {
+    address: String
+    landmark: String
+    city: String
+    state: String
+}
+
+input up_Driver_Params_Location {
+    address: String
+    landmark: String
+    city: String
+    state: String
+}
+
+type Driver implements User {
+    active: Boolean
+    firstName: String
+    lastName: String
+    mobile: String
+    email: String
+    avatar: String
+    dob: String
+    mothers_maiden_name: String
+    primary_location: du_Location
+    secondary_location: du_Location
+    tertiary_location: du_Location
+    bvn: String
+}
+
+input up_Driver_Params {
+    dob: String
+    mothers_maiden_name: String
+    primary_location: du_Location
+    secondary_location: du_Location
+    tertiary_location: du_Location
+    bvn: String
+}

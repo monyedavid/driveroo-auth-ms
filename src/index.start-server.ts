@@ -106,7 +106,12 @@ export const startServer = async () => {
     const port = process.env.PORT || 4000;
 
     const app = await server.start({
-        cors: { credentials: true, origin: "http://localhost:4000" },
+        cors: {
+            credentials: true,
+            origin: process.env.NODE_ENV
+                ? "http://localhost:4000"
+                : "https://driveroo-auth-ms.herokuapp.com/"
+        },
         port
     });
 

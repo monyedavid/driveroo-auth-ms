@@ -42,6 +42,33 @@ const DriverSchema = new Schema(
         },
         avatar: {
             type: String
+        },
+        dob: {
+            type: String
+        },
+        mothers_maiden_name: {
+            type: String
+        },
+        primary_location: {
+            address: String,
+            landmark: String,
+            city: String,
+            state: String
+        },
+        secondary_location: {
+            address: String,
+            landmark: String,
+            city: String,
+            state: String
+        },
+        tertiary_location: {
+            address: String,
+            landmark: String,
+            city: String,
+            state: String
+        },
+        bvn: {
+            type: String
         }
     },
     { timestamps: true }

@@ -1,0 +1,5 @@
+union driver_Response = Driver | Error
+
+type Mutation {
+    updateProfile(params: up_Driver_Params): driver_Response
+}
