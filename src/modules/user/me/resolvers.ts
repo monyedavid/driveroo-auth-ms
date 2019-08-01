@@ -17,6 +17,11 @@ export const resolvers: ResolverMap = {
                     user: result.user,
                     token: result.token
                 };
+
+            return {
+                path: "me",
+                message: "No user Porfile Found"
+            };
         })
     }
 };

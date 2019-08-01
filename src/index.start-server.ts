@@ -27,7 +27,7 @@ const inProd = process.env.NODE_ENV === "production";
 export const startServer = async () => {
     // ESTABLISH MONGOOSE CONNECTIONS
     mongoose
-        .connect(process.env.MONGODB_URI, {
+        .connect(process.env.MONGODB_URI as string, {
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false
@@ -110,8 +110,8 @@ export const startServer = async () => {
         cors: {
             credentials: true,
             origin: process.env.NODE_ENV
-                ? "http://localhost:4000"
-                : "https://driveroo-auth-ms.herokuapp.com/"
+                ? process.env.LOCAL_HOST as string
+                : process.env.UI_URL as string
         },
         port
     });

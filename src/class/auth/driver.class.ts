@@ -2,16 +2,16 @@ import { DriverModel } from "../../models/Drivers";
 import { Session } from "../../types/graphql-utile";
 
 export class DriverProfile {
-    url: string;
+    url?: string;
     constructor(url?: string) {
         this.url = url;
     }
 
     async update(params: GQL.IUpDriverParams, session: Session) {
         // do the bvn verificactiongitgu
-        const user = await DriverModel.findOne({ _id: session.userId });
+        const user: any = await DriverModel.findOne({ _id: session.userId });
         if (user && user.active) {
-            const updatedUser = await DriverModel.findOneAndUpdate(
+            const updatedUser:any = await DriverModel.findOneAndUpdate(
                 { _id: session.userId },
                 { $set: params },
                 { new: true }

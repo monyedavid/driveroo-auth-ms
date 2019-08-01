@@ -15,5 +15,20 @@ declare namespace AUTH {
         password: string;
     }
 
+    type _MultpleUser = {
+        userdata: any;
+        model: model;
+    };
+
+    type _MultpleUser_Response = {
+        path: string;
+        message: string;
+        model: string;
+    };
+
+    type MultpleUser = Array<_MultpleUser>;
+
+    type MultpleUser_Response = Array<_MultpleUser_Response>;
+
     type model = "user" | "admin" | "driver";
 }

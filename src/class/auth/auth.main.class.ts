@@ -23,7 +23,7 @@ const erroresponse = [
 ];
 
 export class Auth {
-    url: string;
+    url?: string;
     constructor(url?: string) {
         this.url = url;
     }
@@ -52,14 +52,19 @@ export class Auth {
 
         // passowrd hash handled by typeorm entity
         // const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new Models[model]({
+        const user: any = new Models[model]({
             ...body
-        });
+        } as any);
 
         await user.save();
         await sendEmail(
             user.email,
-            await createConfirmEmailLink(this.url, user.id, redis, model),
+            await createConfirmEmailLink(
+                this.url as any,
+                user.id,
+                redis,
+                model
+            ),
             subject,
             confirmation
         );
@@ -70,13 +75,13 @@ export class Auth {
 
     async login(
         body: AUTH.ILogin,
-        model: string,
         session: Session,
-        sessionID: string
+        sessionID: string,
+        model?: string
     ) {
         const { email, password } = body;
-        let user;
-        let multipleUser = [];
+        let user: any;
+        let multipleUser: AUTH.MultpleUser = [];
 
         if (model)
             user = await Models[model].findOne({
@@ -111,7 +116,7 @@ export class Auth {
             }
 
             if (multipleUser.length > 1) {
-                const response = [];
+                const response: AUTH.MultpleUser_Response = [];
                 multipleUser.forEach(userObj => {
                     response.push({
                         path: "Login",

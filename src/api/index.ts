@@ -18,37 +18,42 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", async (req, res) => {
     const { email, password, model } = req.body;
     const url = req.protocol + "://" + req.get("host");
     const service = new Auth(url);
     const result = await service.login(
         { email, password },
-        model,
-        req.session,
-        req.sessionID
+        req.session as any,
+        req.sessionID as any,
+        model
     );
 
     if (result.ok) {
         return res.json({ ok: true });
     }
     if (!result.ok) {
-        return res.json({ ok: result.error });
+        return res.status(422).json({ ok: false, error: result.error });
     }
+
+    return res.status(422).json({ ok: false });
 });
 
-router.get("/me", async (req, res, next) => {
+router.get("/me", async (req, res) => {
     const service = new Auth();
-    const result = await service.me(req.session);
+    const result = await service.me(req.session as any);
     if (!result.ok) {
-        return res.status(422).json({ error: result.error });
+        return res.status(401).json({ ok: false, error: result.error });
     }
 
     if (result.ok)
         return res.json({
+            ok: true,
             user: result.user,
             token: result.token
         });
+
+    return res.status(422).json({ ok: false });
 });
 
 router.use(notFound);

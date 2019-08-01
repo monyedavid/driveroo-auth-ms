@@ -15,9 +15,9 @@ export const resolvers: ResolverMap = {
             const service = new Auth(url);
             const result = await service.login(
                 { email, password },
-                model,
                 session,
-                req.sessionID
+                req.sessionID as any,
+                model as any
             );
 
             if (result.ok) {
@@ -26,6 +26,11 @@ export const resolvers: ResolverMap = {
             if (!result.ok) {
                 return result.error;
             }
+
+            return {
+                path: "login",
+                message: "Unable to Login"
+            };
         }
     }
 };
