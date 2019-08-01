@@ -9,5 +9,14 @@ export const resolvers: ResolverMap = {
 
             return "me_data";
         }
+    },
+    driver_Response: {
+        __resolveType: obj => {
+            if (obj.path) {
+                return "Error";
+            }
+
+            return "me_data";
+        }
     }
 };
