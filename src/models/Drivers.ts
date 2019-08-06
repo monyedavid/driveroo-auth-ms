@@ -67,7 +67,22 @@ const DriverSchema = new Schema(
             city: String,
             state: String
         },
-        bvn: {
+        bank_bvn: {
+            type: String
+        },
+        bank_account_number: {
+            type: String
+        },
+        bank_code: {
+            type: String
+        },
+        bank_firstname: {
+            type: String
+        },
+        bank_middletname: {
+            type: String
+        },
+        bank_lastname: {
             type: String
         }
     },

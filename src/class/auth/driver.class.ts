@@ -1,5 +1,8 @@
 import { DriverModel } from "../../models/Drivers";
 import { Session } from "../../types/graphql-utile";
+import { driverUpdateschema } from "../../schema/driver.updates.schema.yup";
+import { formatYupError } from "../../utils/formatYupError";
+import { Bank } from "./bank.security";
 
 export class DriverProfile {
     url?: string;
@@ -8,10 +11,28 @@ export class DriverProfile {
     }
 
     async update(params: GQL.IUpDriverParams, session: Session) {
-        // do the bvn verificactiongitgu
+        // do the data validation
+        try {
+            await driverUpdateschema.validate(params, { abortEarly: false });
+        } catch (error) {
+            return formatYupError(error);
+        }
+        // do the bvn verification
+        const data = {
+            account_number: "",
+            bank_code: "",
+            bvn: "",
+            firstname: "",
+            middle_name: "",
+            last_name: ""
+        };
+
+        if (new Bank()._bvn(data)) {
+        }
+
         const user: any = await DriverModel.findOne({ _id: session.userId });
         if (user && user.active) {
-            const updatedUser:any = await DriverModel.findOneAndUpdate(
+            const updatedUser: any = await DriverModel.findOneAndUpdate(
                 { _id: session.userId },
                 { $set: params },
                 { new: true }

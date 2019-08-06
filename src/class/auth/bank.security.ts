@@ -1,3 +1,5 @@
 export class Bank {
-    async _bvn(bvn: string) {}
+    async _bankData(bankname: string) {}
+
+    async _bvn(data: BANK.bvn) {}
 }
