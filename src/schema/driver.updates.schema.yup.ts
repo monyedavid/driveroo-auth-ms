@@ -1,12 +1,22 @@
 import * as yup from "yup";
 
-export const driverUpdateschema = yup.object().shape({
+const locationSchema = yup.object().shape({
+    address: yup.string(),
+    landmark: yup.string(),
+    city: yup.string(),
+    state: yup.string()
+});
+
+export const driverFirstUpdateschema = yup.object().shape({
     dob: yup.string(),
     mothers_maiden_name: yup.string(),
-    primary_location: yup.string(),
-    secondary_location: yup.string(),
-    tertiary_location: yup.string(),
-    bank_bvn: yup.string(),
+    primary_location: locationSchema,
+    secondary_location: locationSchema,
+    tertiary_location: locationSchema,
+    bank_bvn: yup
+        .string()
+        .min(11)
+        .max(11),
     bank_account_number: yup.string(),
     bank_code: yup.string(),
     bank_firstname: yup.string(),

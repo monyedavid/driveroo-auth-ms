@@ -21,7 +21,7 @@ export class Bank {
 
     async _paystack(methodman: BANK.methodman, body: any, urlP?: string) {
         if (methodman === "get") {
-            return await rp.get(urlP ? urlP : this.url);
+            return await rp.get(urlP ? urlP : this.url, { ...this.options });
         }
 
         if (methodman === "post") {

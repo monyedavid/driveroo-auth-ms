@@ -1,6 +1,6 @@
 import { DriverModel } from "../../models/Drivers";
 import { Session } from "../../types/graphql-utile";
-import { driverUpdateschema } from "../../schema/driver.updates.schema.yup";
+import { driverFirstUpdateschema } from "../../schema/driver.updates.schema.yup";
 import { formatYupError } from "../../utils/formatYupError";
 import { Bank } from "./bank.security";
 
@@ -13,7 +13,9 @@ export class DriverProfile {
     async firstUpdate(params: GQL.IUpDriverParams, session: Session) {
         // do the data validation
         try {
-            await driverUpdateschema.validate(params, { abortEarly: false });
+            await driverFirstUpdateschema.validate(params, {
+                abortEarly: false
+            });
         } catch (error) {
             return formatYupError(error);
         }
@@ -21,6 +23,8 @@ export class DriverProfile {
         const bvnVerfication: any = await new Bank()._resolveBvn(
             params.bank_bvn
         );
+
+        console.log(bvnVerfication, "BVN VERIFICATION");
 
         if (bvnVerfication.status) {
             const updateData = {
@@ -62,7 +66,9 @@ export class DriverProfile {
             return [
                 {
                     path: "Bank Verification",
-                    message: "BVN verification failed"
+                    message: `BVN verification failed :REASON: ${
+                        bvnVerfication.message
+                    }`
                 }
             ];
         }
