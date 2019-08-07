@@ -41,6 +41,7 @@
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "connect-redis": "^3.4.2",
+        "copyfiles": "^2.1.1",
         "dotenv": "^8.0.0",
         "express": "^4.17.1",
         "express-rate-limit": "^5.0.0",
@@ -72,7 +73,7 @@
         "yup": "^0.27.0"
     },
     "scripts": {
-        "start": "ts-node --files build/index.js",
+        "start": "node build/index.js",
         "start:dev": "NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
         "test": "NODE_ENV=test jest --watch --detectOpenHandles --no-cache",
         "build:server": "rimraf ./build && tsc && copyfiles -u 1 src/**/*.graphql build",
