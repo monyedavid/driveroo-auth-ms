@@ -10,7 +10,7 @@ export class DriverProfile {
         this.url = url;
     }
 
-    async update(params: GQL.IUpDriverParams, session: Session) {
+    async firstUpdate(params: GQL.IUpDriverParams, session: Session) {
         // do the data validation
         try {
             await driverUpdateschema.validate(params, { abortEarly: false });
@@ -18,12 +18,17 @@ export class DriverProfile {
             return formatYupError(error);
         }
 
-        const bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
+        const bvnVerfication: any = await new Bank()._resolveBvn(
+            params.bank_bvn
+        );
 
         if (bvnVerfication.status) {
             const updateData = {
                 bank_: "",
-                ...params
+                ...params,
+                resolved_bvn_data: {
+                    ...bvnVerfication.data
+                }
             };
 
             const user: any = await DriverModel.findOne({
@@ -49,7 +54,7 @@ export class DriverProfile {
                         primary_location: updatedUser.primary_location,
                         secondary_location: updatedUser.secondary_location,
                         tertiary_location: updatedUser.tertiary_location,
-                        bvn: updatedUser.bvn
+                        bvn: updatedUser.bank_bvn
                     }
                 ];
             }

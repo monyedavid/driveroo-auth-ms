@@ -90,6 +90,21 @@ const DriverSchema = new Schema(
         },
         bank_lastname: {
             type: String
+        },
+        resolved_bvn_data: {
+            first_name: {
+                type: String
+            },
+            last_name: {
+                type: String
+            },
+            dob: {
+                type: String
+            },
+            mobile: {
+                type: String
+            },
+            bvn: { type: String }
         }
     },
     { timestamps: true }

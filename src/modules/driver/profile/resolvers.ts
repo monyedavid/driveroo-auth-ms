@@ -8,9 +8,9 @@ export const resolvers: ResolverMap = {
     },
 
     Mutation: {
-        updateProfile: async (
+        firstUpdate: async (
             _,
-            { params }: GQL.IUpdateProfileOnMutationArguments,
+            { params }: GQL.IFirstUpdateOnMutationArguments,
             { session }
         ) => {
             if (!session.userId) {
@@ -23,7 +23,7 @@ export const resolvers: ResolverMap = {
                 ];
             }
 
-            return await new DriverProfile().update(params, session);
+            return await new DriverProfile().firstUpdate(params, session);
         }
     }
 };

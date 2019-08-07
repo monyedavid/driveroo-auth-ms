@@ -59,7 +59,7 @@ message: string;
 
 interface IMutation {
 __typename: "Mutation";
-updateProfile: Array<driver_Response> | null;
+firstUpdate: Array<driver_Response> | null;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IDefLoginResponse> | null;
@@ -67,7 +67,7 @@ logout: boolean | null;
 register: Array<IDefResponse> | null;
 }
 
-interface IUpdateProfileOnMutationArguments {
+interface IFirstUpdateOnMutationArguments {
 params: IUpDriverParams;
 }
 

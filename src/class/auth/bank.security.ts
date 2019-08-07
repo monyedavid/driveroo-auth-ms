@@ -61,7 +61,7 @@ export class Bank {
             return { status: false };
         }
 
-        return rd;
+        return { ...rd };
     }
 
     async _bvn(data: BANK.bvn) {}
