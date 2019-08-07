@@ -17,47 +17,57 @@ export class DriverProfile {
         } catch (error) {
             return formatYupError(error);
         }
-        // do the bvn verification
-        const data = {
-            account_number: "",
-            bank_code: "",
-            bvn: "",
-            firstname: "",
-            middle_name: "",
-            last_name: ""
-        };
 
-        if (new Bank()._bvn(data)) {
-        }
+        const bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
 
-        const user: any = await DriverModel.findOne({ _id: session.userId });
-        if (user && user.active) {
-            const updatedUser: any = await DriverModel.findOneAndUpdate(
-                { _id: session.userId },
-                { $set: params },
-                { new: true }
-            );
-
-            return {
-                active: updatedUser.active,
-                firstName: updatedUser.firstName,
-                lastName: updatedUser.lastName,
-                mobile: updatedUser.mobile,
-                email: updatedUser.email,
-                avatar: updatedUser.avatar,
-                dob: updatedUser.dob,
-                mothers_maiden_name: updatedUser.mothers_maiden_name,
-                primary_location: updatedUser.primary_location,
-                secondary_location: updatedUser.secondary_location,
-                tertiary_location: updatedUser.tertiary_location,
-                bvn: updatedUser.bvn
+        if (bvnVerfication.status) {
+            const updateData = {
+                bank_: "",
+                ...params
             };
+
+            const user: any = await DriverModel.findOne({
+                _id: session.userId
+            });
+            if (user && user.active) {
+                const updatedUser: any = await DriverModel.findOneAndUpdate(
+                    { _id: session.userId },
+                    { $set: updateData },
+                    { new: true }
+                );
+
+                return [
+                    {
+                        active: updatedUser.active,
+                        firstName: updatedUser.firstName,
+                        lastName: updatedUser.lastName,
+                        mobile: updatedUser.mobile,
+                        email: updatedUser.email,
+                        avatar: updatedUser.avatar,
+                        dob: updatedUser.dob,
+                        mothers_maiden_name: updatedUser.mothers_maiden_name,
+                        primary_location: updatedUser.primary_location,
+                        secondary_location: updatedUser.secondary_location,
+                        tertiary_location: updatedUser.tertiary_location,
+                        bvn: updatedUser.bvn
+                    }
+                ];
+            }
+        } else {
+            return [
+                {
+                    path: "Bank Verification",
+                    message: "BVN verification failed"
+                }
+            ];
         }
 
-        return {
-            path: "User",
-            message:
-                "This Profile has been de-activated or does not exist, contact an adminstrator for support"
-        };
+        return [
+            {
+                path: "User",
+                message:
+                    "This Profile has been de-activated or does not exist, contact an adminstrator for support"
+            }
+        ];
     }
 }

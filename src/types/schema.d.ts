@@ -59,7 +59,7 @@ message: string;
 
 interface IMutation {
 __typename: "Mutation";
-updateProfile: driver_Response | null;
+updateProfile: Array<driver_Response> | null;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IDefLoginResponse> | null;
@@ -97,7 +97,12 @@ mothers_maiden_name: string;
 primary_location: IUpDriverParamsLocation;
 secondary_location: IUpDriverParamsLocation;
 tertiary_location: IUpDriverParamsLocation;
-bvn: string;
+bank_bvn: string;
+bank_slug: string;
+bank_account_number: string;
+bank_firstname: string;
+bank_middlename: string;
+bank_lastname: string;
 }
 
 interface IUpDriverParamsLocation {

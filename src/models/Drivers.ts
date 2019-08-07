@@ -70,6 +70,12 @@ const DriverSchema = new Schema(
         bank_bvn: {
             type: String
         },
+        bank_: {
+            type: String
+        },
+        bank_slug: {
+            type: String
+        },
         bank_account_number: {
             type: String
         },

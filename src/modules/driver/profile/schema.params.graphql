@@ -33,5 +33,10 @@ input up_Driver_Params {
     primary_location: up_Driver_Params_Location!
     secondary_location: up_Driver_Params_Location!
     tertiary_location: up_Driver_Params_Location!
-    bvn: String!
+    bank_bvn: String!
+    bank_slug: String!
+    bank_account_number: String!
+    bank_firstname: String!
+    bank_middlename: String!
+    bank_lastname: String!
 }

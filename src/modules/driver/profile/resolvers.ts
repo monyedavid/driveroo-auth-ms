@@ -14,11 +14,13 @@ export const resolvers: ResolverMap = {
             { session }
         ) => {
             if (!session.userId) {
-                return {
-                    path: "login",
-                    message:
-                        "No user profile found, please login in and try again"
-                };
+                return [
+                    {
+                        path: "login",
+                        message:
+                            "No user profile found, please login in and try again"
+                    }
+                ];
             }
 
             return await new DriverProfile().update(params, session);
