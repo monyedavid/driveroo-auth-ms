@@ -11,6 +11,8 @@ export class DriverProfile {
     }
 
     async firstUpdate(params: GQL.IUpDriverParams, session: Session) {
+        let updateData;
+        let bvnVerfication;
         // do the data validation
         try {
             await driverFirstUpdateschema.validate(params, {
@@ -20,53 +22,59 @@ export class DriverProfile {
             return formatYupError(error);
         }
 
-        const bvnVerfication: any = await new Bank()._resolveBvn(
-            params.bank_bvn
-        );
+        const user: any = await DriverModel.findOne({
+            _id: session.userId
+        });
 
-        if (bvnVerfication.status) {
-            const updateData = {
-                ...params,
-                resolved_bvn_data: {
-                    ...bvnVerfication.data
-                }
-            };
-
-            const user: any = await DriverModel.findOne({
-                _id: session.userId
-            });
-            if (user && user.active) {
-                const updatedUser: any = await DriverModel.findOneAndUpdate(
-                    { _id: session.userId },
-                    { $set: updateData },
-                    { new: true }
-                );
-
-                return [
-                    {
-                        active: updatedUser.active,
-                        firstName: updatedUser.firstName,
-                        lastName: updatedUser.lastName,
-                        mobile: updatedUser.mobile,
-                        email: updatedUser.email,
-                        avatar: updatedUser.avatar,
-                        dob: updatedUser.dob,
-                        mothers_maiden_name: updatedUser.mothers_maiden_name,
-                        primary_location: updatedUser.primary_location,
-                        secondary_location: updatedUser.secondary_location,
-                        tertiary_location: updatedUser.tertiary_location,
-                        bvn: updatedUser.bank_bvn,
-                        bank_: updatedUser.bank_
-                    }
-                ];
+        if (user && user.active) {
+            if (user.bank_bvn) {
+                updateData = {
+                    ...params
+                };
             }
-        } else {
+
+            if (!user.bank_bvn) {
+                bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
+                if (!bvnVerfication.status) {
+                    return [
+                        {
+                            path: "Bank Verification",
+                            message: `BVN verification failed :REASON: ${
+                                bvnVerfication.message
+                            }`
+                        }
+                    ];
+                }
+
+                updateData = {
+                    ...params,
+                    resolved_bvn_data: {
+                        ...bvnVerfication.data
+                    }
+                };
+            }
+
+            const updatedUser: any = await DriverModel.findOneAndUpdate(
+                { _id: session.userId },
+                { $set: updateData },
+                { new: true }
+            );
+
             return [
                 {
-                    path: "Bank Verification",
-                    message: `BVN verification failed :REASON: ${
-                        bvnVerfication.message
-                    }`
+                    active: updatedUser.active,
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    mobile: updatedUser.mobile,
+                    email: updatedUser.email,
+                    avatar: updatedUser.avatar,
+                    dob: updatedUser.dob,
+                    mothers_maiden_name: updatedUser.mothers_maiden_name,
+                    primary_location: updatedUser.primary_location,
+                    secondary_location: updatedUser.secondary_location,
+                    tertiary_location: updatedUser.tertiary_location,
+                    bvn: updatedUser.bank_bvn,
+                    bank_: updatedUser.bank_
                 }
             ];
         }
