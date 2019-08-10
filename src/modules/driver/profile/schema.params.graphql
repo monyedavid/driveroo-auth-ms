@@ -12,6 +12,12 @@ input up_Driver_Params_Location {
     state: String!
 }
 
+input up_Driver_Params_bank_ {
+    account_number: String
+    account_name: String
+    name: String
+}
+
 type Driver implements User {
     active: Boolean
     firstName: String
@@ -34,9 +40,5 @@ input up_Driver_Params {
     secondary_location: up_Driver_Params_Location!
     tertiary_location: up_Driver_Params_Location!
     bank_bvn: String!
-    bank_slug: String!
-    bank_account_number: String!
-    bank_firstname: String!
-    bank_middlename: String!
-    bank_lastname: String!
+    bank_: up_Driver_Params_bank_
 }

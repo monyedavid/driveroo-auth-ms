@@ -2,6 +2,29 @@ import * as mongoose from "mongoose";
 import * as bcrypt from "bcryptjs";
 const Schema = mongoose.Schema;
 
+const DriverReview = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "EmplyeeUsers"
+    },
+    rate: {
+        type: String
+    },
+    message: String
+});
+
+const bankDetailsSchema = new Schema({
+    account_number: {
+        type: String
+    },
+    account_name: {
+        type: String
+    },
+    name: {
+        type: String
+    }
+});
+
 // Create Schema
 const DriverSchema = new Schema(
     {
@@ -53,42 +76,28 @@ const DriverSchema = new Schema(
             address: String,
             landmark: String,
             city: String,
-            state: String
+            state: String,
+            long: String,
+            lat: String
         },
         secondary_location: {
             address: String,
             landmark: String,
             city: String,
-            state: String
+            state: String,
+            long: String,
+            lat: String
         },
         tertiary_location: {
             address: String,
             landmark: String,
             city: String,
-            state: String
+            state: String,
+            long: String,
+            lat: String
         },
+        bank_: [bankDetailsSchema],
         bank_bvn: {
-            type: String
-        },
-        bank_: {
-            type: String
-        },
-        bank_slug: {
-            type: String
-        },
-        bank_account_number: {
-            type: String
-        },
-        bank_code: {
-            type: String
-        },
-        bank_firstname: {
-            type: String
-        },
-        bank_middletname: {
-            type: String
-        },
-        bank_lastname: {
             type: String
         },
         resolved_bvn_data: {
@@ -105,6 +114,15 @@ const DriverSchema = new Schema(
                 type: String
             },
             bvn: { type: String }
+        },
+        driver_reviews: [DriverReview],
+        driver_rating: {
+            type: String
+        },
+        last_seen: {
+            long: String,
+            lat: String,
+            timeStamp: String
         }
     },
     { timestamps: true }

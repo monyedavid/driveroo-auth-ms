@@ -7,6 +7,12 @@ const locationSchema = yup.object().shape({
     state: yup.string()
 });
 
+const bank_ = yup.object().shape({
+    account_number: yup.string(),
+    account_name: yup.string(),
+    name: yup.string()
+});
+
 export const driverFirstUpdateschema = yup.object().shape({
     dob: yup.string(),
     mothers_maiden_name: yup.string(),
@@ -17,9 +23,5 @@ export const driverFirstUpdateschema = yup.object().shape({
         .string()
         .min(11)
         .max(11),
-    bank_account_number: yup.string(),
-    bank_code: yup.string(),
-    bank_firstname: yup.string(),
-    bank_middletname: yup.string(),
-    bank_lastname: yup.string()
+    bank_: yup.array(bank_)
 });

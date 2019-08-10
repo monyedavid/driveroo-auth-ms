@@ -24,11 +24,8 @@ export class DriverProfile {
             params.bank_bvn
         );
 
-        console.log(bvnVerfication, "BVN VERIFICATION");
-
         if (bvnVerfication.status) {
             const updateData = {
-                bank_: "",
                 ...params,
                 resolved_bvn_data: {
                     ...bvnVerfication.data
@@ -58,7 +55,8 @@ export class DriverProfile {
                         primary_location: updatedUser.primary_location,
                         secondary_location: updatedUser.secondary_location,
                         tertiary_location: updatedUser.tertiary_location,
-                        bvn: updatedUser.bank_bvn
+                        bvn: updatedUser.bank_bvn,
+                        bank_: updatedUser.bank_
                     }
                 ];
             }

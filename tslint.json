@@ -11,8 +11,9 @@
         "no-submodule-imports": false,
         "no-return-await": false,
         "no-empty": false,
-        "curly": false
-        // "indent": [true, "tabs", 4]
+        "curly": false,
+        "variable-name": false,
+        "indent": [true, "spaces", 4]
     },
     "rulesDirectory": []
 }

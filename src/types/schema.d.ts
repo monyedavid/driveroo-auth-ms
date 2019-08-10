@@ -98,11 +98,7 @@ primary_location: IUpDriverParamsLocation;
 secondary_location: IUpDriverParamsLocation;
 tertiary_location: IUpDriverParamsLocation;
 bank_bvn: string;
-bank_slug: string;
-bank_account_number: string;
-bank_firstname: string;
-bank_middlename: string;
-bank_lastname: string;
+bank_?: IUpDriverParamsBank | null;
 }
 
 interface IUpDriverParamsLocation {
@@ -110,6 +106,12 @@ address: string;
 landmark: string;
 city: string;
 state: string;
+}
+
+interface IUpDriverParamsBank {
+account_number?: string | null;
+account_name?: string | null;
+name?: string | null;
 }
 
 type driver_Response = IDriver | IError;
