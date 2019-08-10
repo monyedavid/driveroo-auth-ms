@@ -13,7 +13,8 @@
         "no-empty": false,
         "curly": false,
         "variable-name": false,
-        "indent": [true, "spaces", 4]
+        "indent": [true, "spaces", 4],
+        "no-string-literal": false
     },
     "rulesDirectory": []
 }

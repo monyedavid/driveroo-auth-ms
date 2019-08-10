@@ -81,7 +81,7 @@ export class Auth {
     ) {
         const { email, password } = body;
         let user: any;
-        let multipleUser: AUTH.MultpleUser = [];
+        const multipleUser: AUTH.MultpleUser = [];
 
         if (model)
             user = await Models[model].findOne({
@@ -171,7 +171,8 @@ export class Auth {
         session.token = await signTokenStore({
             _id: user._id,
             userfullname: `${user.firstName} ${user.lastName}`,
-            mobile: user.mobile
+            mobile: user.mobile,
+            model: model ? model : multipleUser[0].model
         });
 
         if (sessionID) {
