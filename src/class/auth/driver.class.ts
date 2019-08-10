@@ -28,12 +28,14 @@ export class DriverProfile {
 
         if (user && user.active) {
             if (user.bank_bvn) {
+                console.log("ME | YOU");
                 updateData = {
                     ...params
                 };
             }
 
             if (!user.bank_bvn) {
+                console.log("YOU | SHOULDNT SEE ME");
                 bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
                 if (!bvnVerfication.status) {
                     return [

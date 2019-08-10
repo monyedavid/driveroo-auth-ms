@@ -40,5 +40,5 @@ input up_Driver_Params {
     secondary_location: up_Driver_Params_Location!
     tertiary_location: up_Driver_Params_Location!
     bank_bvn: String!
-    bank_: up_Driver_Params_bank_
+    bank_: [up_Driver_Params_bank_]
 }

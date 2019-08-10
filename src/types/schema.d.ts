@@ -98,7 +98,7 @@ primary_location: IUpDriverParamsLocation;
 secondary_location: IUpDriverParamsLocation;
 tertiary_location: IUpDriverParamsLocation;
 bank_bvn: string;
-bank_?: IUpDriverParamsBank | null;
+bank_?: Array<IUpDriverParamsBank | null> | null;
 }
 
 interface IUpDriverParamsLocation {
