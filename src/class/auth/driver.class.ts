@@ -80,10 +80,23 @@ export class DriverProfile {
                 }
             );
 
-            console.log(
-                primary_location_co_ordinates.data.generateCo_ordinates,
-                "LOCATION CO-ORDINATES | PRIMARY"
-            );
+            const plco =
+                primary_location_co_ordinates.data.generateCo_ordinates[0];
+
+            if (plco.__typename === "Error") {
+                return [
+                    {
+                        path: plco.path,
+                        message: `${plco.message} | @primary_location`
+                    }
+                ];
+            }
+
+            updateData.primary_location["Latitude"] =
+                plco.co_ordinates.Latitude;
+
+            updateData.primary_location["Longitude"] =
+                plco.co_ordinates.Longitude;
 
             const secondary_location_co_ordinates = await dms.retrieveGeoCordinates(
                 {
@@ -96,6 +109,24 @@ export class DriverProfile {
                 }
             );
 
+            const slco =
+                secondary_location_co_ordinates.data.generateCo_ordinates[0];
+
+            if (slco.__typename === "Error") {
+                return [
+                    {
+                        path: slco.path,
+                        message: `${slco.message} | @seondary_location`
+                    }
+                ];
+            }
+
+            updateData.secondary_location["Latitude"] =
+                plco.co_ordinates.Latitude;
+
+            updateData.secondary_location["Longitude"] =
+                plco.co_ordinates.Longitude;
+
             const tertiary_location_co_ordinates = await dms.retrieveGeoCordinates(
                 {
                     country: params.tertiary_location.country
@@ -107,31 +138,49 @@ export class DriverProfile {
                 }
             );
 
+            const tlco =
+                tertiary_location_co_ordinates.data.generateCo_ordinates[0];
+
+            if (tlco.__typename === "Error") {
+                return [
+                    {
+                        path: tlco.path,
+                        message: `${tlco.message} |@primary_location`
+                    }
+                ];
+            }
+
+            updateData.tertiary_location["Latitude"] =
+                plco.co_ordinates.Latitude;
+
+            updateData.tertiary_location["Longitude"] =
+                plco.co_ordinates.Longitude;
+
             // INSERT INTO UPDATED DATA
 
-            // const updatedUser: any = await DriverModel.findOneAndUpdate(
-            //     { _id: session.userId },
-            //     { $set: updateData },
-            //     { new: true }
-            // );
+            const updatedUser: any = await DriverModel.findOneAndUpdate(
+                { _id: session.userId },
+                { $set: updateData },
+                { new: true }
+            );
 
-            // return [
-            //     {
-            //         active: updatedUser.active,
-            //         firstName: updatedUser.firstName,
-            //         lastName: updatedUser.lastName,
-            //         mobile: updatedUser.mobile,
-            //         email: updatedUser.email,
-            //         avatar: updatedUser.avatar,
-            //         dob: updatedUser.dob,
-            //         mothers_maiden_name: updatedUser.mothers_maiden_name,
-            //         primary_location: updatedUser.primary_location,
-            //         secondary_location: updatedUser.secondary_location,
-            //         tertiary_location: updatedUser.tertiary_location,
-            //         bvn: updatedUser.bank_bvn,
-            //         bank_: updatedUser.bank_
-            //     }
-            // ];
+            return [
+                {
+                    active: updatedUser.active,
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    mobile: updatedUser.mobile,
+                    email: updatedUser.email,
+                    avatar: updatedUser.avatar,
+                    dob: updatedUser.dob,
+                    mothers_maiden_name: updatedUser.mothers_maiden_name,
+                    primary_location: updatedUser.primary_location,
+                    secondary_location: updatedUser.secondary_location,
+                    tertiary_location: updatedUser.tertiary_location,
+                    bvn: updatedUser.bank_bvn,
+                    bank_: updatedUser.bank_
+                }
+            ];
         }
 
         return [
