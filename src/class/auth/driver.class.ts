@@ -28,15 +28,18 @@ export class DriverProfile {
         });
 
         if (user && user.active) {
-            const dms = new DriverMs("http://localhost:4100");
+            const dms = new DriverMs(session, "http://localhost:4100");
             const co_ord = await dms.retrieveGeoCordinates({
                 country: "nigeria",
-                city: "lagso",
+                city: "lagos",
                 housenumber: "20",
                 street: "ikorodu"
             });
 
-            console.log(co_ord, "LOCATION CO-ORDINATES");
+            console.log(
+                co_ord.data.generateCo_ordinates,
+                "LOCATION CO-ORDINATES"
+            );
 
             if (user.bank_bvn) {
                 console.log("ME | YOU");
@@ -66,6 +69,8 @@ export class DriverProfile {
                     }
                 };
             }
+
+            // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
 
             const updatedUser: any = await DriverModel.findOneAndUpdate(
                 { _id: session.userId },
