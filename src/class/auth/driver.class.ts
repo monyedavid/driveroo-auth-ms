@@ -75,28 +75,34 @@ export class DriverProfile {
             // FOR PRIMARY LOCATION
             const primary_location_co_ordinates = await dms.retrieveGeoCordinates(
                 {
-                    country: "nigeria",
-                    city: "lagos",
-                    housenumber: "20",
-                    street: "ikorodu"
+                    country: params.primary_location.country
+                        ? params.primary_location.country
+                        : "nigeria",
+                    city: params.primary_location.city,
+                    housenumber: params.primary_location.housenumber,
+                    street: params.primary_location.street
                 }
             );
 
             const secondary_location_co_ordinates = await dms.retrieveGeoCordinates(
                 {
-                    country: "nigeria",
-                    city: "lagos",
-                    housenumber: "20",
-                    street: "ikorodu"
+                    country: params.secondary_location.country
+                        ? params.secondary_location.country
+                        : "nigeria",
+                    city: params.secondary_location.city,
+                    housenumber: params.secondary_location.housenumber,
+                    street: params.secondary_location.street
                 }
             );
 
             const tertiary_location_co_ordinates = await dms.retrieveGeoCordinates(
                 {
-                    country: "nigeria",
-                    city: "lagos",
-                    housenumber: "20",
-                    street: "ikorodu"
+                    country: params.tertiary_location.country
+                        ? params.tertiary_location.country
+                        : "nigeria",
+                    city: params.tertiary_location.city,
+                    housenumber: params.tertiary_location.housenumber,
+                    street: params.tertiary_location.street
                 }
             );
 

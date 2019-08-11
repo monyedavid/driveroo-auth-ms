@@ -2,14 +2,24 @@ type du_Location {
     address: String
     landmark: String
     city: String
+    country: String
     state: String
+    Longitude: String
+    Latitude: String
+    housenumber: String
+    street: String
 }
 
 input up_Driver_Params_Location {
     address: String!
     landmark: String!
     city: String!
+    country: String
     state: String!
+    Longitude: String!
+    Latitude: String!
+    housenumber: String!
+    street: String!
 }
 
 input up_Driver_Params_bank_ {

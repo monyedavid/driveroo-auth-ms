@@ -25,6 +25,21 @@ const bankDetailsSchema = new Schema({
     }
 });
 
+const LocationSchema = new Schema({
+    address: String,
+    landmark: String,
+    city: String,
+    country: {
+        type: String,
+        default: "nigeria"
+    },
+    state: String,
+    Longitude: String,
+    Latitude: String,
+    housenumber: String,
+    street: String
+});
+
 // Create Schema
 const DriverSchema = new Schema(
     {
@@ -72,48 +87,9 @@ const DriverSchema = new Schema(
         mothers_maiden_name: {
             type: String
         },
-        primary_location: {
-            address: String,
-            landmark: String,
-            city: String,
-            country: {
-                type: String,
-                default: "nigeria"
-            },
-            state: String,
-            Longitude: String,
-            Latitude: String,
-            housenumber: String,
-            street: String
-        },
-        secondary_location: {
-            address: String,
-            landmark: String,
-            state: String,
-            city: String,
-            country: {
-                type: String,
-                default: "nigeria"
-            },
-            Longitude: String,
-            Latitude: String,
-            housenumber: String,
-            street: String
-        },
-        tertiary_location: {
-            address: String,
-            landmark: String,
-            city: String,
-            country: {
-                type: String,
-                default: "nigeria"
-            },
-            state: String,
-            Longitude: String,
-            Latitude: String,
-            housenumber: String,
-            street: String
-        },
+        primary_location: LocationSchema,
+        secondary_location: LocationSchema,
+        tertiary_location: LocationSchema,
         bank_: [bankDetailsSchema],
         bank_bvn: {
             type: String

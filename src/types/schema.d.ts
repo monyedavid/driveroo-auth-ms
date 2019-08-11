@@ -105,7 +105,12 @@ interface IUpDriverParamsLocation {
 address: string;
 landmark: string;
 city: string;
+country?: string | null;
 state: string;
+Longitude: string;
+Latitude: string;
+housenumber: string;
+street: string;
 }
 
 interface IUpDriverParamsBank {
@@ -139,7 +144,12 @@ __typename: "du_Location";
 address: string | null;
 landmark: string | null;
 city: string | null;
+country: string | null;
 state: string | null;
+Longitude: string | null;
+Latitude: string | null;
+housenumber: string | null;
+street: string | null;
 }
 
 interface IDefLoginResponse {
