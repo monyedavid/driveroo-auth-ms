@@ -76,25 +76,43 @@ const DriverSchema = new Schema(
             address: String,
             landmark: String,
             city: String,
+            country: {
+                type: String,
+                default: "nigeria"
+            },
             state: String,
-            long: String,
-            lat: String
+            Longitude: String,
+            Latitude: String,
+            housenumber: String,
+            street: String
         },
         secondary_location: {
             address: String,
             landmark: String,
-            city: String,
             state: String,
-            long: String,
-            lat: String
+            city: String,
+            country: {
+                type: String,
+                default: "nigeria"
+            },
+            Longitude: String,
+            Latitude: String,
+            housenumber: String,
+            street: String
         },
         tertiary_location: {
             address: String,
             landmark: String,
             city: String,
+            country: {
+                type: String,
+                default: "nigeria"
+            },
             state: String,
-            long: String,
-            lat: String
+            Longitude: String,
+            Latitude: String,
+            housenumber: String,
+            street: String
         },
         bank_: [bankDetailsSchema],
         bank_bvn: {
@@ -120,8 +138,8 @@ const DriverSchema = new Schema(
             type: String
         },
         last_seen: {
-            long: String,
-            lat: String,
+            Longitude: String,
+            Latitude: String,
             timeStamp: String
         }
     },

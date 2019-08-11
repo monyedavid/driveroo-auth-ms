@@ -4,6 +4,7 @@ import { driverFirstUpdateschema } from "../../schema/driver.updates.schema.yup"
 import { formatYupError } from "../../utils/formatYupError";
 import { Bank } from "./bank.security";
 import { DriverMs } from "../../cluster/Graphql/driver.class";
+import { inProd } from "../../index.start-server";
 
 export class DriverProfile {
     url?: string;
@@ -28,19 +29,6 @@ export class DriverProfile {
         });
 
         if (user && user.active) {
-            const dms = new DriverMs(session, "http://localhost:4100");
-            const co_ord = await dms.retrieveGeoCordinates({
-                country: "nigeria",
-                city: "lagos",
-                housenumber: "20",
-                street: "ikorodu"
-            });
-
-            console.log(
-                co_ord.data.generateCo_ordinates,
-                "LOCATION CO-ORDINATES"
-            );
-
             if (user.bank_bvn) {
                 console.log("ME | YOU");
                 updateData = {
@@ -71,6 +59,48 @@ export class DriverProfile {
             }
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
+            let dms: DriverMs;
+            if (!inProd) {
+                dms = new DriverMs(session, "http://localhost:4100");
+            }
+
+            if (inProd) {
+                dms = new DriverMs(session);
+            }
+
+            // console.log(
+            //     co_ord.data.generateCo_ordinates,
+            //     "LOCATION CO-ORDINATES"
+            // );
+            // FOR PRIMARY LOCATION
+            const primary_location_co_ordinates = await dms.retrieveGeoCordinates(
+                {
+                    country: "nigeria",
+                    city: "lagos",
+                    housenumber: "20",
+                    street: "ikorodu"
+                }
+            );
+
+            const secondary_location_co_ordinates = await dms.retrieveGeoCordinates(
+                {
+                    country: "nigeria",
+                    city: "lagos",
+                    housenumber: "20",
+                    street: "ikorodu"
+                }
+            );
+
+            const tertiary_location_co_ordinates = await dms.retrieveGeoCordinates(
+                {
+                    country: "nigeria",
+                    city: "lagos",
+                    housenumber: "20",
+                    street: "ikorodu"
+                }
+            );
+
+            // INSERT INTO UPDATED DATA
 
             const updatedUser: any = await DriverModel.findOneAndUpdate(
                 { _id: session.userId },

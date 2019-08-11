@@ -22,7 +22,7 @@ import api from "./api/index";
 
 const RedisStore = connectRedis(session);
 const sessionSecret = process.env.SESSION_SECRET as string;
-const inProd = process.env.NODE_ENV === "production";
+export const inProd = process.env.NODE_ENV === "production";
 
 export const startServer = async () => {
     // ESTABLISH MONGOOSE CONNECTIONS
@@ -110,8 +110,8 @@ export const startServer = async () => {
         cors: {
             credentials: true,
             origin: process.env.NODE_ENV
-                ? process.env.LOCAL_HOST as string
-                : process.env.UI_URL as string
+                ? (process.env.LOCAL_HOST as string)
+                : (process.env.UI_URL as string)
         },
         port
     });
