@@ -107,8 +107,6 @@ landmark: string;
 city: string;
 country?: string | null;
 state: string;
-Longitude: string;
-Latitude: string;
 housenumber: string;
 street: string;
 }

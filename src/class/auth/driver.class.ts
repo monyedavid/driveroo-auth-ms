@@ -68,10 +68,6 @@ export class DriverProfile {
                 dms = new DriverMs(session);
             }
 
-            // console.log(
-            //     co_ord.data.generateCo_ordinates,
-            //     "LOCATION CO-ORDINATES"
-            // );
             // FOR PRIMARY LOCATION
             const primary_location_co_ordinates = await dms.retrieveGeoCordinates(
                 {
@@ -82,6 +78,11 @@ export class DriverProfile {
                     housenumber: params.primary_location.housenumber,
                     street: params.primary_location.street
                 }
+            );
+
+            console.log(
+                primary_location_co_ordinates.data.generateCo_ordinates,
+                "LOCATION CO-ORDINATES | PRIMARY"
             );
 
             const secondary_location_co_ordinates = await dms.retrieveGeoCordinates(
@@ -108,29 +109,29 @@ export class DriverProfile {
 
             // INSERT INTO UPDATED DATA
 
-            const updatedUser: any = await DriverModel.findOneAndUpdate(
-                { _id: session.userId },
-                { $set: updateData },
-                { new: true }
-            );
+            // const updatedUser: any = await DriverModel.findOneAndUpdate(
+            //     { _id: session.userId },
+            //     { $set: updateData },
+            //     { new: true }
+            // );
 
-            return [
-                {
-                    active: updatedUser.active,
-                    firstName: updatedUser.firstName,
-                    lastName: updatedUser.lastName,
-                    mobile: updatedUser.mobile,
-                    email: updatedUser.email,
-                    avatar: updatedUser.avatar,
-                    dob: updatedUser.dob,
-                    mothers_maiden_name: updatedUser.mothers_maiden_name,
-                    primary_location: updatedUser.primary_location,
-                    secondary_location: updatedUser.secondary_location,
-                    tertiary_location: updatedUser.tertiary_location,
-                    bvn: updatedUser.bank_bvn,
-                    bank_: updatedUser.bank_
-                }
-            ];
+            // return [
+            //     {
+            //         active: updatedUser.active,
+            //         firstName: updatedUser.firstName,
+            //         lastName: updatedUser.lastName,
+            //         mobile: updatedUser.mobile,
+            //         email: updatedUser.email,
+            //         avatar: updatedUser.avatar,
+            //         dob: updatedUser.dob,
+            //         mothers_maiden_name: updatedUser.mothers_maiden_name,
+            //         primary_location: updatedUser.primary_location,
+            //         secondary_location: updatedUser.secondary_location,
+            //         tertiary_location: updatedUser.tertiary_location,
+            //         bvn: updatedUser.bank_bvn,
+            //         bank_: updatedUser.bank_
+            //     }
+            // ];
         }
 
         return [

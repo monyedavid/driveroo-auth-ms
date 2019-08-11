@@ -16,8 +16,6 @@ input up_Driver_Params_Location {
     city: String!
     country: String
     state: String!
-    Longitude: String!
-    Latitude: String!
     housenumber: String!
     street: String!
 }
