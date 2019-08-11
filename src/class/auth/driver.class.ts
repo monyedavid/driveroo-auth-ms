@@ -3,6 +3,7 @@ import { Session } from "../../types/graphql-utile";
 import { driverFirstUpdateschema } from "../../schema/driver.updates.schema.yup";
 import { formatYupError } from "../../utils/formatYupError";
 import { Bank } from "./bank.security";
+import { DriverMs } from "../../cluster/Graphql/driver.class";
 
 export class DriverProfile {
     url?: string;
@@ -27,6 +28,16 @@ export class DriverProfile {
         });
 
         if (user && user.active) {
+            const dms = new DriverMs("http://localhost:4100");
+            const co_ord = await dms.retrieveGeoCordinates({
+                country: "nigeria",
+                city: "lagso",
+                housenumber: "20",
+                street: "ikorodu"
+            });
+
+            console.log(co_ord, "LOCATION CO-ORDINATES");
+
             if (user.bank_bvn) {
                 console.log("ME | YOU");
                 updateData = {
