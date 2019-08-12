@@ -12,13 +12,19 @@ export default async (
         // find user
         if (
             !(await AdminModel.findOne({
-                _id: context.userId
+                _id: context.userId,
+                active: true
             }))
         )
             return await resolver(
                 parent,
                 args,
-                { ...context, AdminloggedIn: false },
+                {
+                    ...context,
+                    AdminloggedIn: false,
+                    message:
+                        "An invalid user was found, contact Driverro technical staff"
+                },
                 info
             );
     }
@@ -31,13 +37,29 @@ export default async (
                 { ...context, AdminloggedIn: true },
                 info
             );
+
+        if (context.session.model !== "admin")
+            return await resolver(
+                parent,
+                args,
+                {
+                    ...context,
+                    AdminloggedIn: false,
+                    message: "Please Log in as a valid Admin to procced"
+                },
+                info
+            );
     }
     // afterware
 
     return await resolver(
         parent,
         args,
-        { ...context, AdminloggedIn: false },
+        {
+            ...context,
+            AdminloggedIn: false,
+            message: "No session was found, please re-login to continue"
+        },
         info
     );
 };

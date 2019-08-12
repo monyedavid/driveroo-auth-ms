@@ -13,6 +13,8 @@ export interface Context {
     url: string;
     session: Session;
     req: Express.Request;
+    AdminloggedIn?: boolean;
+    message: string;
 }
 
 export type Resolver = (

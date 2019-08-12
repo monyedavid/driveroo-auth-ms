@@ -10,7 +10,18 @@ export const resolvers: ResolverMap = {
     Mutation: {
         admin_: createMiddleWare(
             middleware,
-            async (_, { email, mobile }: GQL.IAdminLinkParams, { url }) => {
+            async (
+                _,
+                { email, mobile }: GQL.IAdminLinkParams,
+                { url, AdminloggedIn, message }
+            ) => {
+                if (!AdminloggedIn)
+                    return [
+                        {
+                            path: "Auth",
+                            message
+                        }
+                    ];
                 return await new UAdmin(url).registerNewUser({ email, mobile });
             }
         )
