@@ -165,7 +165,7 @@ export class Auth {
         session.userId = user._id;
         session.userfullname = `${user.firstName} ${user.lastName}`;
         session.mobile = user.mobile;
-        session.model = model ? model : multipleUser[0].model;
+        session.model = model ? model : (multipleUser[0].model as any);
         session.token = await signTokenStore({
             _id: user._id,
             userfullname: `${user.firstName} ${user.lastName}`,
