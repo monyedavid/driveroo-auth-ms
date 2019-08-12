@@ -40,7 +40,7 @@ export class UAdmin {
         return [
             {
                 ok: true,
-                mssg: `Administration Link has been sent employee @${email}`
+                mssg: `Administration Link has been sent employee at ${email}`
             }
         ];
     }

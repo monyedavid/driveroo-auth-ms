@@ -8,7 +8,6 @@ export default async (
     context: any,
     info: any
 ) => {
-    console.log(context.session, "session context");
     if (context.session) {
         if (context.session.userId) {
             // find user
