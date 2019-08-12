@@ -1,0 +1,15 @@
+type Mutation {
+    admin_(params: admin_Link_Params!): [admin_response!]
+}
+
+input admin_Link_Params {
+    email: String!
+    mobile: String!
+}
+
+type _admin {
+    ok: String
+    mssg: String
+}
+
+union admin_response = _admin | Error

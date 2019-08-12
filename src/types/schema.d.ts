@@ -60,6 +60,7 @@ message: string;
 interface IMutation {
 __typename: "Mutation";
 firstUpdate: Array<driver_Response> | null;
+admin_: Array<admin_response> | null;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IDefLoginResponse> | null;
@@ -69,6 +70,10 @@ register: Array<IDefResponse> | null;
 
 interface IFirstUpdateOnMutationArguments {
 params: IUpDriverParams;
+}
+
+interface IAdminOnMutationArguments {
+params: IAdminLinkParams;
 }
 
 interface ISendForgotPasswordEmailOnMutationArguments {
@@ -148,6 +153,21 @@ Longitude: string | null;
 Latitude: string | null;
 housenumber: string | null;
 street: string | null;
+}
+
+interface IAdminLinkParams {
+email: string;
+mobile: string;
+}
+
+type admin_response = IAdmin | IError;
+
+
+
+interface IAdmin {
+__typename: "_admin";
+ok: string | null;
+mssg: string | null;
 }
 
 interface IDefLoginResponse {

@@ -26,5 +26,15 @@ export const resolvers: ResolverMap = {
                     return "Driver";
             }
         }
+    },
+    admin_response: {
+        __resolveType: obj => {
+            switch (obj.type) {
+                case "_admin":
+                    return "_admin";
+                default:
+                    return "Error";
+            }
+        }
     }
 };
