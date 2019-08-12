@@ -1,5 +1,6 @@
 import { ResolverMap } from "../../../types/graphql-utile";
 import { Auth } from "../../../class/auth/auth.main.class";
+import { validateEmailRegex } from "../../../utils/email.mobile.validation";
 
 export const resolvers: ResolverMap = {
     Query: {
@@ -9,16 +10,27 @@ export const resolvers: ResolverMap = {
     Mutation: {
         login: async (
             _,
-            { email, password, model }: GQL.ILoginOnMutationArguments,
+            { emailormobile, password, model }: GQL.ILoginOnMutationArguments,
             { session, req, url }
         ) => {
+            let result;
             const service = new Auth(url);
-            const result = await service.login(
-                { email, password },
-                session,
-                req.sessionID as any,
-                model as any
-            );
+
+            if (validateEmailRegex(emailormobile))
+                result = await service.login(
+                    { email: emailormobile, password },
+                    session,
+                    req.sessionID as any,
+                    model as any
+                );
+
+            if (!validateEmailRegex(emailormobile))
+                result = await service.login(
+                    { mobile: emailormobile, password },
+                    session,
+                    req.sessionID as any,
+                    model as any
+                );
 
             if (result.ok) {
                 return null;

@@ -4,7 +4,7 @@ type Query {
 
 type Mutation {
     login(
-        email: String!
+        emailormobile: String!
         password: String!
         model: String
     ): [def_Login_Response!]

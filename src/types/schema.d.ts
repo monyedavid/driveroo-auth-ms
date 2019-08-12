@@ -86,7 +86,7 @@ key: string;
 }
 
 interface ILoginOnMutationArguments {
-email: string;
+emailormobile: string;
 password: string;
 model?: string | null;
 }
