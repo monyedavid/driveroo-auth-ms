@@ -8,11 +8,12 @@ export default async (
     context: any,
     info: any
 ) => {
-    if (context.userId) {
+    console.log(context.session, "session context");
+    if (context.session.userId) {
         // find user
         if (
             !(await AdminModel.findOne({
-                _id: context.userId,
+                _id: context.session.userId,
                 active: true
             }))
         )
@@ -38,7 +39,10 @@ export default async (
                 info
             );
 
-        if (context.session.model !== "admin")
+        if (
+            context.session.model === "user" ||
+            context.session.model === "driver"
+        )
             return await resolver(
                 parent,
                 args,
