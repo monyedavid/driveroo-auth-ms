@@ -7,12 +7,13 @@ export const confirmEmamil = async (req: Request, res: Response) => {
     const userId = await redis.get(id);
     if (userId) {
         await Models[type].findOneAndUpdate(
-            { user: id },
+            { _id: id },
             { $set: { confirmed: true } },
             { new: true }
         );
         await redis.del(id);
-        res.send("ok");
+        res.json({ ok: true });
+        // rediret to login
     } else {
         res.send("Invalid");
     }
