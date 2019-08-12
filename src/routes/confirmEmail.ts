@@ -4,10 +4,10 @@ import Models from "../models/main.models.exports";
 
 export const confirmEmamil = async (req: Request, res: Response) => {
     const { id, type } = req.params;
-    const userId = await redis.get(id);
-    if (userId) {
+    const _id = await redis.get(id);
+    if (_id) {
         await Models[type].findOneAndUpdate(
-            { _id: id },
+            { _id },
             { $set: { confirmed: true } },
             { new: true }
         );
