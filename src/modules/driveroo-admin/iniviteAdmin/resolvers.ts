@@ -12,7 +12,7 @@ export const resolvers: ResolverMap = {
             middleware,
             async (
                 _,
-                { email, mobile }: GQL.IAdminLinkParams,
+                { params: { email, mobile } }: GQL.IAdminOnMutationArguments,
                 { url, AdminloggedIn, message }
             ) => {
                 if (!AdminloggedIn)

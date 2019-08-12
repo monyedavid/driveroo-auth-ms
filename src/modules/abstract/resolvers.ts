@@ -29,11 +29,11 @@ export const resolvers: ResolverMap = {
     },
     admin_response: {
         __resolveType: obj => {
-            switch (obj.type) {
-                case "_admin":
-                    return "_admin";
-                default:
+            switch (obj.path) {
+                case "Error":
                     return "Error";
+                default:
+                    return "_admin";
             }
         }
     }
