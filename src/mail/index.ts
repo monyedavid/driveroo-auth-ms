@@ -15,12 +15,12 @@ export const main = async (
     const transporter = nodemailer.createTransport(sgTransport(options));
 
     const mailOptions = {
-        from: `"Candy 👻" <${process.env.MAIL_USER}>`, // sender address
+        from: `"Driveroo 👻 Test MAils" <${process.env.MAIL_USER}>`, // sender address
         to: reciepient, // list of receivers
         subject, // Subject line
-        text: "Hello to Myself?", // plain text body
+        text: "Hello?", // plain text body
         html: `<p>
-    <b>Hello</b> and whats good
+    <b>Hello</b>
     </p>
       <a href="${url}">${message}</a>`
     };

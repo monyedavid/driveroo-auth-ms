@@ -68,7 +68,13 @@ export class Auth {
         );
         // console.log(url, "THIS URL GEN. FROM START_SERVER()")
         // console.log(link,)
-        return [{ ok: true, path: "Register", message: "success" }];
+        return [
+            {
+                ok: true,
+                path: "Register",
+                message: `A mail has been sent to email @${email}, please use the link provided to confirm email`
+            }
+        ];
     }
 
     async login(
