@@ -22,14 +22,7 @@ export const resolvers: ResolverMap = {
                             message
                         }
                     ];
-
-                return [
-                    {
-                        path: "ok",
-                        message: "middleware works"
-                    }
-                ];
-                // return await new UAdmin(url).registerNewUser({ email, mobile });
+                return await new UAdmin(url).registerNewUser({ email, mobile });
             }
         )
     }
