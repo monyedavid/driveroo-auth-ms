@@ -4,7 +4,8 @@ import { formatYupError } from "../../utils/formatYupError";
 import {
     duplicateEmail,
     invalidLogin,
-    forgotPasswordLockError
+    forgotPasswordLockError,
+    duplicateMobile
 } from "../../schema/schema.errors";
 import { sendEmail } from "../../utils/sendEmail";
 import { createConfirmEmailLink } from "../../utils/createConfirmEmailLink";
@@ -41,14 +42,26 @@ export class Auth {
             email
         });
 
-        if (userAlreadyExists) {
+        const userAlreadyExistsMobile = await Models[model].findOne({
+            email
+        });
+
+        if (userAlreadyExistsMobile)
+            return [
+                {
+                    path: "email",
+                    message: duplicateMobile
+                }
+            ];
+
+        if (userAlreadyExists)
             return [
                 {
                     path: "email",
                     message: duplicateEmail
                 }
             ];
-        }
+
         // const hashedPassword = await bcrypt.hash(password, 10);
         const user: any = new Models[model]({
             ...body
@@ -83,29 +96,65 @@ export class Auth {
         sessionID: string,
         model?: string
     ) {
-        const { email, password } = body;
+        const { email, password, mobile } = body;
         let user: any;
         const multipleUser: AUTH.MultpleUser = [];
 
-        if (model)
-            user = await Models[model].findOne({
-                email
-            });
+        if (model) {
+            if (email) {
+                user = await Models[model].findOne({
+                    email
+                });
+            }
+
+            if (mobile)
+                user = await Models[model].findOne({
+                    mobile
+                });
+        }
 
         if (!model) {
             let possible_user;
 
-            possible_user = await Models["admin"].findOne({ email });
-            // multipleUser
-            if (possible_user)
-                multipleUser.push({ userdata: possible_user, model: "admin" });
+            if (email) {
+                possible_user = await Models["admin"].findOne({ email });
+                // multipleUser
+                if (possible_user)
+                    multipleUser.push({
+                        userdata: possible_user,
+                        model: "admin"
+                    });
 
-            possible_user = await Models["user"].findOne({ email });
-            // multipleUser
-            if (possible_user)
-                multipleUser.push({ userdata: possible_user, model: "user" });
+                possible_user = await Models["user"].findOne({ email });
+                // multipleUser
+                if (possible_user)
+                    multipleUser.push({
+                        userdata: possible_user,
+                        model: "user"
+                    });
 
-            possible_user = await Models["driver"].findOne({ email });
+                possible_user = await Models["driver"].findOne({ email });
+            }
+
+            if (mobile) {
+                possible_user = await Models["admin"].findOne({ mobile });
+                // multipleUser
+                if (possible_user)
+                    multipleUser.push({
+                        userdata: possible_user,
+                        model: "admin"
+                    });
+
+                possible_user = await Models["user"].findOne({ mobile });
+                // multipleUser
+                if (possible_user)
+                    multipleUser.push({
+                        userdata: possible_user,
+                        model: "user"
+                    });
+
+                possible_user = await Models["driver"].findOne({ mobile });
+            }
             // multipleUser
             if (possible_user)
                 multipleUser.push({ userdata: possible_user, model: "driver" });

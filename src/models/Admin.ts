@@ -20,11 +20,13 @@ const AdminSchema = new Schema(
         },
         mobile: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         password: {
             type: String,

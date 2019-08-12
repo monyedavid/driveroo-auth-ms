@@ -11,7 +11,8 @@ declare namespace AUTH {
     }
 
     interface ILogin {
-        email: string;
+        email?: string;
+        mobile?: string;
         password: string;
     }
 

@@ -4,6 +4,7 @@ export const confirmEmailError = "Please confirm your email";
 export const forgotPasswordLockError = "Account is Locked";
 export const expiredKeyError = "Key has expired";
 export const duplicateEmail = "A user already exists with this email";
+export const duplicateMobile = "A user already exists with this Mobile";
 export const emailNotLongEnough = "email must be at least 3 characters";
 export const invalidEmail = "email must be a valid email";
 export const passwordNotLongEnough = "password must be at least 3 characters";
