@@ -8,5 +8,5 @@ export const AdminRegistratonLink = async (
 ) => {
     const id = v4();
     await redis.set(id, JSON.stringify(data), "ex", 60 * 60 * 24);
-    return `${url}/api/v1/user/new-admin-registration/${id}`;
+    return `${url}/api/v1/driveroo-admin/new-registration/${id}`;
 };

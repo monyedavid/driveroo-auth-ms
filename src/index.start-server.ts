@@ -110,7 +110,7 @@ export const startServer = async () => {
         cors: {
             credentials: true,
             origin: process.env.NODE_ENV
-                ? (process.env.LOCAL_HOST as string)
+                ? (process.env.UI_URL_DEV as string)
                 : (process.env.UI_URL as string)
         },
         port

@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { formatYupError } from "../../utils/formatYupError";
 import { createAdminRegistrationLink } from "../../schema/register.action.yup";
 import { AdminRegistratonLink } from "../../utils/admin.reg.create.link";
@@ -15,10 +14,7 @@ export class UAdmin {
      * cREATE LINK FOR NEW SUPERVISOR ACCOUNT
      * REF CLIENT REGISTER
      */
-    public async registerNewUser(
-        { body: { email }, session }: Request,
-        res: Response
-    ) {
+    public async registerNewUser({ email, mobile }: AUTH.IUserAdminLinkData) {
         try {
             await createAdminRegistrationLink.validate(
                 { email },
@@ -29,7 +25,11 @@ export class UAdmin {
         }
 
         // create admin registartion link
-        const arl = await AdminRegistratonLink(this.url, { email }, redis);
+        const arl = await AdminRegistratonLink(
+            this.url,
+            { email, mobile },
+            redis
+        );
         await sendEmail(
             email,
             arl,
@@ -37,9 +37,11 @@ export class UAdmin {
             "Hi please use the link to register your administrator account"
         );
 
-        return res.json({
-            ok: true,
-            mssg: `Administration Link has been sent employee @${email}`
-        });
+        return [
+            {
+                ok: true,
+                mssg: `Administration Link has been sent employee @${email}`
+            }
+        ];
     }
 }

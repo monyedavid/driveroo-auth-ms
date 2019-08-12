@@ -34,5 +34,6 @@ declare namespace AUTH {
 
     interface IUserAdminLinkData {
         email: string;
+        mobile: string;
     }
 }
