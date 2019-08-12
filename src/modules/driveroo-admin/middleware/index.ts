@@ -9,28 +9,29 @@ export default async (
     info: any
 ) => {
     console.log(context.session, "session context");
-    if (context.session.userId) {
-        // find user
-        if (
-            !(await AdminModel.findOne({
-                _id: context.session.userId,
-                active: true
-            }))
-        )
-            return await resolver(
-                parent,
-                args,
-                {
-                    ...context,
-                    AdminloggedIn: false,
-                    message:
-                        "An invalid user was found, contact Driverro technical staff"
-                },
-                info
-            );
-    }
-    // middleware
     if (context.session) {
+        if (context.session.userId) {
+            // find user
+            if (
+                !(await AdminModel.findOne({
+                    _id: context.session.userId,
+                    active: true
+                }))
+            )
+                return await resolver(
+                    parent,
+                    args,
+                    {
+                        ...context,
+                        AdminloggedIn: false,
+                        message:
+                            "An invalid user was found, Please Log in as a valid Admin"
+                    },
+                    info
+                );
+        }
+        // middleware
+
         if (context.session.model === "admin")
             return await resolver(
                 parent,
