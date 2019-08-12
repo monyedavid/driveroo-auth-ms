@@ -182,9 +182,9 @@ export class Auth {
 
     public async me(session: Session) {
         if (session.userId && session.model) {
-            const user = await Models[session.model].findOne({
+            const user = (await Models[session.model].findOne({
                 _id: session.userId
-            });
+            })) as any;
 
             if (user) {
                 return {
