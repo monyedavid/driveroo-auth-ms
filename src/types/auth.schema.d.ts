@@ -31,4 +31,8 @@ declare namespace AUTH {
     type MultpleUser_Response = Array<_MultpleUser_Response>;
 
     type model = "user" | "admin" | "driver";
+
+    interface IUserAdminLinkData {
+        email: string;
+    }
 }
