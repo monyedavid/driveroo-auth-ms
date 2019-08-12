@@ -5,7 +5,7 @@ export interface Session extends Express.Session {
     userfullname?: string;
     mobile?: string;
     token?: string;
-    model?: string;
+    model?: AUTH.model;
 }
 
 export interface Context {
