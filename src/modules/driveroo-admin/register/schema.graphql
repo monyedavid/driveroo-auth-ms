@@ -1,0 +1,10 @@
+type Mutation {
+    admin_link_register(params: reg_Params!): [def_Response!]
+}
+
+input reg_Params {
+    encrypt_id: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+}

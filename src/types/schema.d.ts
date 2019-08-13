@@ -61,6 +61,7 @@ interface IMutation {
 __typename: "Mutation";
 firstUpdate: Array<driver_Response> | null;
 admin_: Array<admin_response> | null;
+admin_link_register: Array<IDefResponse> | null;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IDefLoginResponse> | null;
@@ -74,6 +75,10 @@ params: IUpDriverParams;
 
 interface IAdminOnMutationArguments {
 params: IAdminLinkParams;
+}
+
+interface IAdminLinkRegisterOnMutationArguments {
+params: IRegParams;
 }
 
 interface ISendForgotPasswordEmailOnMutationArguments {
@@ -170,19 +175,12 @@ ok: string | null;
 mssg: string | null;
 }
 
-interface IDefLoginResponse {
-__typename: "def_Login_Response";
-path: string | null;
-message: string | null;
-sessionId: string | null;
-model: string | null;
-}
-
 interface IRegParams {
-email: string;
+encrypt_id: string;
 password: string;
 firstName: string;
 lastName: string;
+email: string;
 mobile: string;
 }
 
@@ -191,6 +189,14 @@ __typename: "def_Response";
 ok: boolean | null;
 path: string;
 message: string;
+}
+
+interface IDefLoginResponse {
+__typename: "def_Login_Response";
+path: string | null;
+message: string | null;
+sessionId: string | null;
+model: string | null;
 }
 
 interface IUserr {
