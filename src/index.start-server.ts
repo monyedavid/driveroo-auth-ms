@@ -13,7 +13,7 @@ import { GraphQLServer } from "graphql-yoga";
 import { redis } from "./cache";
 import { confirmEmamil } from "./routes/confirmEmail";
 import { genschema } from "./utils/generateSchema";
-import { redisessionprefix } from "./constant";
+import { redisessionprefix, driverrBotSession } from "./constant";
 import api from "./api/index";
 
 // import { oauthConfig } from "./Auth";
@@ -38,10 +38,11 @@ export const startServer = async () => {
     // Graphql Server
     const server = new GraphQLServer({
         schema: genschema(),
-        context: ({ request }) => ({
+        context: ({ request, response }) => ({
             redis,
             url: request.protocol + "://" + request.get("host"),
             session: request.session,
+            res: response,
             req: request
         })
     });
@@ -66,7 +67,7 @@ export const startServer = async () => {
                 client: redis as any,
                 prefix: redisessionprefix
             }),
-            name: "DRIVERBOT",
+            name: driverrBotSession,
             secret: sessionSecret,
             resave: false,
             saveUninitialized: false,

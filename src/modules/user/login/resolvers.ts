@@ -32,8 +32,6 @@ export const resolvers: ResolverMap = {
                     model as any
                 );
 
-            console.log(result, "| result data");
-
             if (result.ok) {
                 return [
                     {
