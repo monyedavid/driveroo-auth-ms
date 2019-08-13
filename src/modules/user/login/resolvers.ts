@@ -32,20 +32,26 @@ export const resolvers: ResolverMap = {
                     model as any
                 );
 
+            console.log(result, "| result data");
+
             if (result.ok) {
-                return {
-                    sessionId: result.sessionId,
-                    model: result.model
-                };
+                return [
+                    {
+                        sessionId: result.sessionId,
+                        model: result.model
+                    }
+                ];
             }
             if (!result.ok) {
                 return result.error;
             }
 
-            return {
-                path: "login",
-                message: "Unable to Login"
-            };
+            return [
+                {
+                    path: "login",
+                    message: "Unable to Login"
+                }
+            ];
         }
     }
 };
