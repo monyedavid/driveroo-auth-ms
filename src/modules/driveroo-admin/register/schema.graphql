@@ -1,8 +1,8 @@
 type Mutation {
-    admin_link_register(params: reg_Params!): [def_Response!]
+    admin_link_register(params: reg_Params_Admin_LInk!): [def_Response!]
 }
 
-input reg_Params {
+input reg_Params_Admin_LInk {
     encrypt_id: String!
     password: String!
     firstName: String!

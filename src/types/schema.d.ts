@@ -78,7 +78,7 @@ params: IAdminLinkParams;
 }
 
 interface IAdminLinkRegisterOnMutationArguments {
-params: IRegParams;
+params: IRegParamsAdminLInk;
 }
 
 interface ISendForgotPasswordEmailOnMutationArguments {
@@ -175,13 +175,11 @@ ok: string | null;
 mssg: string | null;
 }
 
-interface IRegParams {
+interface IRegParamsAdminLInk {
 encrypt_id: string;
 password: string;
 firstName: string;
 lastName: string;
-email: string;
-mobile: string;
 }
 
 interface IDefResponse {
@@ -197,6 +195,14 @@ path: string | null;
 message: string | null;
 sessionId: string | null;
 model: string | null;
+}
+
+interface IRegParams {
+email: string;
+password: string;
+firstName: string;
+lastName: string;
+mobile: string;
 }
 
 interface IUserr {
