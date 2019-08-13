@@ -35,7 +35,7 @@ export class UAdmin {
             mobile
         });
 
-        if (mobile)
+        if (mobileUser)
             return [
                 {
                     path: "mobile",
@@ -43,7 +43,7 @@ export class UAdmin {
                 }
             ];
 
-        if (mobile)
+        if (emaiuser)
             return [
                 {
                     path: "email",
