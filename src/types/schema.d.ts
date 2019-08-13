@@ -49,6 +49,7 @@ lastName: string | null;
 mobile: string | null;
 email: string | null;
 avatar: string | null;
+confirmed: boolean | null;
 }
 
 interface IError {
@@ -134,6 +135,7 @@ type driver_Response = IDriver | IError;
 interface IDriver {
 __typename: "Driver";
 active: boolean | null;
+confirmed: boolean | null;
 firstName: string | null;
 lastName: string | null;
 mobile: string | null;

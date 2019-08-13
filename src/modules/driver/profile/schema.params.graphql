@@ -28,6 +28,7 @@ input up_Driver_Params_bank_ {
 
 type Driver implements User {
     active: Boolean
+    confirmed: Boolean
     firstName: String
     lastName: String
     mobile: String

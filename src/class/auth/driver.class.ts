@@ -167,6 +167,7 @@ export class DriverProfile {
             return [
                 {
                     active: updatedUser.active,
+                    confirmed: updatedUser.confirmed,
                     firstName: updatedUser.firstName,
                     lastName: updatedUser.lastName,
                     mobile: updatedUser.mobile,

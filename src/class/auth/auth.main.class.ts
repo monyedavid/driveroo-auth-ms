@@ -271,7 +271,8 @@ export class Auth {
                         lastName: user.lastName,
                         mobile: user.mobile,
                         email: user.email,
-                        avatar: user.avatar
+                        avatar: user.avatar,
+                        confirmed: user.confirmed
                     },
                     token: session.token
                 };

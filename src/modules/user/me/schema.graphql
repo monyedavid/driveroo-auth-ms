@@ -5,6 +5,7 @@ interface User {
     mobile: String
     email: String
     avatar: String
+    confirmed: Boolean
 }
 
 type me_data {
