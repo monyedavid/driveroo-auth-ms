@@ -27,7 +27,7 @@ function genNoUserErrorResponse(loginwith: AUTH.loginwith) {
 
     return [
         {
-            path: "email",
+            path: "mobile",
             message: invalidLogin
         }
     ];
@@ -126,10 +126,12 @@ export class Auth {
                 });
             }
 
-            if (mobile) loginwith = "mobile";
-            user = await Models[model].findOne({
-                mobile
-            });
+            if (mobile) {
+                loginwith = "mobile";
+                user = await Models[model].findOne({
+                    mobile
+                });
+            }
         }
 
         if (!model) {
