@@ -18,7 +18,15 @@ export const resolvers: ResolverMap = {
                 redis
             );
 
-            if (!invalid) console.log(decodedvalue, "decoded | value");
+            if (!invalid) {
+                const { email, mobile } = decodedvalue;
+                if (decodedvalue.exp < Date.now()) {
+                    return await service.register(
+                        { email, mobile, password, firstName, lastName },
+                        "admin"
+                    );
+                }
+            }
 
             if (invalid)
                 return [
