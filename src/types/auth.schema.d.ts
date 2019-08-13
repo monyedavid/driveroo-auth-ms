@@ -33,6 +33,8 @@ declare namespace AUTH {
 
     type model = "user" | "admin" | "driver";
 
+    type loginwith = "mobile" | "email";
+
     interface IUserAdminLinkData {
         email: string;
         mobile: string;

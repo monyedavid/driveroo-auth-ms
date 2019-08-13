@@ -16,6 +16,23 @@ import { confirmEmailError, userseesionidPrefix } from "../../constant";
 import { Session } from "../../types/graphql-utile";
 import { signTokenStore } from "../../utils/generateTohen";
 
+function genNoUserErrorResponse(loginwith: AUTH.loginwith) {
+    if (loginwith === "email")
+        return [
+            {
+                path: "email",
+                message: invalidLogin
+            }
+        ];
+
+    return [
+        {
+            path: "email",
+            message: invalidLogin
+        }
+    ];
+}
+
 const erroresponse = [
     {
         path: "email",
@@ -30,7 +47,7 @@ export class Auth {
     }
 
     async register(body: AUTH.IRegister, model: AUTH.model) {
-        const { email } = body;
+        const { email, mobile } = body;
 
         try {
             await schema.validate(body, { abortEarly: false });
@@ -43,13 +60,13 @@ export class Auth {
         });
 
         const userAlreadyExistsMobile = await Models[model].findOne({
-            email
+            mobile
         });
 
         if (userAlreadyExistsMobile)
             return [
                 {
-                    path: "email",
+                    path: "mobile",
                     message: duplicateMobile
                 }
             ];
@@ -98,19 +115,21 @@ export class Auth {
     ) {
         const { email, password, mobile } = body;
         let user: any;
+        let loginwith: AUTH.loginwith;
         const multipleUser: AUTH.MultpleUser = [];
 
         if (model) {
             if (email) {
+                loginwith = "email";
                 user = await Models[model].findOne({
                     email
                 });
             }
 
-            if (mobile)
-                user = await Models[model].findOne({
-                    mobile
-                });
+            if (mobile) loginwith = "mobile";
+            user = await Models[model].findOne({
+                mobile
+            });
         }
 
         if (!model) {
@@ -181,7 +200,7 @@ export class Auth {
         }
 
         if (!user) {
-            return { ok: false, error: erroresponse };
+            return { ok: false, error: genNoUserErrorResponse(loginwith) };
         }
 
         const valid = await bcrypt.compare(password, user.password);
@@ -207,7 +226,7 @@ export class Auth {
                 ok: false,
                 error: [
                     {
-                        path: "email",
+                        path: "password",
                         message: forgotPasswordLockError
                     }
                 ]
