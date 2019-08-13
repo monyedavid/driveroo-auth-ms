@@ -33,7 +33,10 @@ export const resolvers: ResolverMap = {
                 );
 
             if (result.ok) {
-                return null;
+                return {
+                    sessionId: result.sessionId,
+                    model: result.model
+                };
             }
             if (!result.ok) {
                 return result.error;

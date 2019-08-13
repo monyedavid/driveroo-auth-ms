@@ -5,7 +5,8 @@ type def_Response {
 }
 
 type def_Login_Response {
-    path: String!
-    message: String!
+    path: String
+    message: String
+    sessionId: String
     model: String
 }

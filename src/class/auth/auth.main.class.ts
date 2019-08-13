@@ -232,7 +232,7 @@ export class Auth {
             await redis.lpush(`${userseesionidPrefix}${user.id}`, sessionID);
         }
 
-        return { ok: true };
+        return { ok: true, sessionId: sessionID, model: session.model };
     }
 
     public async me(session: Session) {

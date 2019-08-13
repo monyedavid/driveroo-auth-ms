@@ -172,8 +172,9 @@ mssg: string | null;
 
 interface IDefLoginResponse {
 __typename: "def_Login_Response";
-path: string;
-message: string;
+path: string | null;
+message: string | null;
+sessionId: string | null;
 model: string | null;
 }
 
