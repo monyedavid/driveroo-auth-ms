@@ -110,7 +110,9 @@ export const startServer = async () => {
     const app = await server.start({
         cors: {
             credentials: true,
-            origin: "*"
+            origin: process.env.NODE_ENV
+                ? (process.env.UI_URL_DEV as string)
+                : (process.env.UI_URL as string)
         },
         port
     });
