@@ -27,11 +27,11 @@ router.get("/new-registration/:id", async (req, res, next) => {
 
             const encrypted_id = await signTokenStore(data, redis);
             // redirect to actuall register post || register url
-            // return res.redirect(`${ui}/auth/${encrypted_id}`)
-            return res.json({
-                ok: true,
-                "registration-link": `${ui}/auth/${encrypted_id}`
-            });
+            return res.redirect(`${ui}/auth/${encrypted_id}`);
+            // return res.json({
+            //     ok: true,
+            //     "registration-link": `${ui}/auth/${encrypted_id}`
+            // });
         }
         return res.send({
             ok: false,
