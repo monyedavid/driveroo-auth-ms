@@ -21,7 +21,7 @@ export class DriverProfile {
                 abortEarly: false
             });
         } catch (error) {
-            return formatYupError(error);
+            return { ok: false, error: formatYupError(error) };
         }
 
         const user: any = await DriverModel.findOne({
@@ -30,24 +30,25 @@ export class DriverProfile {
 
         if (user && user.active) {
             if (user.bank_bvn) {
-                console.log("ME | YOU");
                 updateData = {
                     ...params
                 };
             }
 
             if (!user.bank_bvn) {
-                console.log("YOU | SHOULDNT SEE ME");
                 bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
                 if (!bvnVerfication.status) {
-                    return [
-                        {
-                            path: "Bank Verification",
-                            message: `BVN verification failed :REASON: ${
-                                bvnVerfication.message
-                            }`
-                        }
-                    ];
+                    return {
+                        ok: false,
+                        error: [
+                            {
+                                path: "Bank Verification",
+                                message: `BVN verification failed :REASON: ${
+                                    bvnVerfication.message
+                                }`
+                            }
+                        ]
+                    };
                 }
 
                 updateData = {
@@ -84,12 +85,15 @@ export class DriverProfile {
                 primary_location_co_ordinates.data.generateCo_ordinates[0];
 
             if (plco.__typename === "Error") {
-                return [
-                    {
-                        path: plco.path,
-                        message: `${plco.message} | @primary_location`
-                    }
-                ];
+                return {
+                    ok: false,
+                    error: [
+                        {
+                            path: plco.path,
+                            message: `${plco.message} | @primary_location`
+                        }
+                    ]
+                };
             }
 
             updateData.primary_location["Latitude"] =
@@ -113,12 +117,15 @@ export class DriverProfile {
                 secondary_location_co_ordinates.data.generateCo_ordinates[0];
 
             if (slco.__typename === "Error") {
-                return [
-                    {
-                        path: slco.path,
-                        message: `${slco.message} | @seondary_location`
-                    }
-                ];
+                return {
+                    ok: false,
+                    error: [
+                        {
+                            path: slco.path,
+                            message: `${slco.message} | @seondary_location`
+                        }
+                    ]
+                };
             }
 
             updateData.secondary_location["Latitude"] =
@@ -142,12 +149,15 @@ export class DriverProfile {
                 tertiary_location_co_ordinates.data.generateCo_ordinates[0];
 
             if (tlco.__typename === "Error") {
-                return [
-                    {
-                        path: tlco.path,
-                        message: `${tlco.message} |@primary_location`
-                    }
-                ];
+                return {
+                    ok: false,
+                    error: [
+                        {
+                            path: tlco.path,
+                            message: `${tlco.message} |@primary_location`
+                        }
+                    ]
+                };
             }
 
             updateData.tertiary_location["Latitude"] =
@@ -164,8 +174,9 @@ export class DriverProfile {
                 { new: true }
             );
 
-            return [
-                {
+            return {
+                ok: true,
+                success: {
                     active: updatedUser.active,
                     confirmed: updatedUser.confirmed,
                     firstName: updatedUser.firstName,
@@ -181,15 +192,18 @@ export class DriverProfile {
                     bvn: updatedUser.bank_bvn,
                     bank_: updatedUser.bank_
                 }
-            ];
+            };
         }
 
-        return [
-            {
-                path: "User",
-                message:
-                    "This Profile has been de-activated or does not exist, contact an adminstrator for support"
-            }
-        ];
+        return {
+            ok: false,
+            error: [
+                {
+                    path: "User",
+                    message:
+                        "This Profile has been de-activated or does not exist, contact an adminstrator for support"
+                }
+            ]
+        };
     }
 }

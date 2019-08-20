@@ -1,5 +1,9 @@
-union driver_Response = Driver | Error
+type driver_Response {
+    ok: Boolean!
+    error: [Error!]
+    success: Driver
+}
 
 type Mutation {
-    firstUpdate(params: up_Driver_Params!): [driver_Response!]
+    firstUpdate(params: up_Driver_Params!): driver_Response!
 }

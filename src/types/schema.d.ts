@@ -60,7 +60,7 @@ message: string | null;
 
 interface IMutation {
 __typename: "Mutation";
-firstUpdate: Array<driver_Response> | null;
+firstUpdate: IDriverResponse;
 admin_: Array<admin_response> | null;
 admin_link_register: IDefResponse;
 sendForgotPasswordEmail: Array<IError> | null;
@@ -128,9 +128,12 @@ account_name?: string | null;
 name?: string | null;
 }
 
-type driver_Response = IDriver | IError;
-
-
+interface IDriverResponse {
+__typename: "driver_Response";
+ok: boolean;
+error: Array<IError> | null;
+success: IDriver | null;
+}
 
 interface IDriver {
 __typename: "Driver";
