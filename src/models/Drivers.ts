@@ -87,9 +87,21 @@ const DriverSchema = new Schema(
         mothers_maiden_name: {
             type: String
         },
-        primary_location: LocationSchema,
-        secondary_location: LocationSchema,
-        tertiary_location: LocationSchema,
+        primary_location: { type: String },
+        secondary_location: { type: String },
+        tertiary_location: { type: String },
+        primary_location_co_ord: {
+            Longitude: String,
+            Latitude: String
+        },
+        secondary_location_co_ord: {
+            Longitude: String,
+            Latitude: String
+        },
+        tertiary_location_co_ord: {
+            Longitude: String,
+            Latitude: String
+        },
         bank_: [bankDetailsSchema],
         bank_bvn: {
             type: String

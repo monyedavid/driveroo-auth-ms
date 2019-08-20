@@ -28,9 +28,16 @@ export class DriverProfile {
             _id: session.userId
         });
 
+        updateData = {
+            primary_location_co_ord: {},
+            secondary_location_co_ord: {},
+            tertiary_location_co_ord: {}
+        };
+
         if (user && user.active) {
             if (user.bank_bvn) {
                 updateData = {
+                    ...updateData,
                     ...params
                 };
             }
@@ -52,6 +59,7 @@ export class DriverProfile {
                 }
 
                 updateData = {
+                    ...updateData,
                     ...params,
                     resolved_bvn_data: {
                         ...bvnVerfication.data
@@ -96,10 +104,10 @@ export class DriverProfile {
                 };
             }
 
-            updateData.primary_location["Latitude"] =
+            updateData.primary_location_co_ord["Latitude"] =
                 plco.co_ordinates.Latitude;
 
-            updateData.primary_location["Longitude"] =
+            updateData.primary_location_co_ord["Longitude"] =
                 plco.co_ordinates.Longitude;
 
             let sec_location_fr: any;
@@ -127,11 +135,11 @@ export class DriverProfile {
                 };
             }
 
-            updateData.secondary_location["Latitude"] =
-                plco.co_ordinates.Latitude;
+            updateData.secondary_location_co_ord["Latitude"] =
+                slco.co_ordinates.Latitude;
 
-            updateData.secondary_location["Longitude"] =
-                plco.co_ordinates.Longitude;
+            updateData.secondary_location_co_ord["Longitude"] =
+                slco.co_ordinates.Longitude;
 
             let tert_location_fr: any;
             if (params.secondary_location.includes("nigeria"))
@@ -159,11 +167,11 @@ export class DriverProfile {
                 };
             }
 
-            updateData.tertiary_location["Latitude"] =
-                plco.co_ordinates.Latitude;
+            updateData.tertiary_location_co_ord["Latitude"] =
+                tlco.co_ordinates.Latitude;
 
-            updateData.tertiary_location["Longitude"] =
-                plco.co_ordinates.Longitude;
+            updateData.tertiary_location_co_ord["Longitude"] =
+                tlco.co_ordinates.Longitude;
 
             // INSERT INTO UPDATED DATA
 
@@ -188,6 +196,12 @@ export class DriverProfile {
                     primary_location: updatedUser.primary_location,
                     secondary_location: updatedUser.secondary_location,
                     tertiary_location: updatedUser.tertiary_location,
+                    primary_location_co_ord:
+                        updatedUser.primary_location_co_ord,
+                    tertiary_location_co_ord:
+                        updatedUser.tertiary_location_co_ord,
+                    secondary_location_co_ord:
+                        updateData.secondary_location_co_ord,
                     bvn: updatedUser.bank_bvn,
                     bank_: updatedUser.bank_
                 }

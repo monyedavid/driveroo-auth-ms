@@ -136,23 +136,19 @@ email: string | null;
 avatar: string | null;
 dob: string | null;
 mothers_maiden_name: string | null;
-primary_location: IDuLocation | null;
-secondary_location: IDuLocation | null;
-tertiary_location: IDuLocation | null;
+primary_location: string | null;
+secondary_location: string | null;
+tertiary_location: string | null;
+primary_location_co_ord: ICoOrdinates | null;
+secondary_location_co_ord: ICoOrdinates | null;
+tertiary_location_co_ord: ICoOrdinates | null;
 bvn: string | null;
 }
 
-interface IDuLocation {
-__typename: "du_Location";
-address: string | null;
-landmark: string | null;
-city: string | null;
-country: string | null;
-state: string | null;
+interface ICoOrdinates {
+__typename: "Co_ordinates";
 Longitude: string | null;
 Latitude: string | null;
-housenumber: string | null;
-street: string | null;
 }
 
 interface IAdminLinkParams {
@@ -204,6 +200,19 @@ password: string;
 firstName: string;
 lastName: string;
 mobile: string;
+}
+
+interface IDuLocation {
+__typename: "du_Location";
+address: string | null;
+landmark: string | null;
+city: string | null;
+country: string | null;
+state: string | null;
+Longitude: string | null;
+Latitude: string | null;
+housenumber: string | null;
+street: string | null;
 }
 
 interface IUpDriverParamsLocation {
