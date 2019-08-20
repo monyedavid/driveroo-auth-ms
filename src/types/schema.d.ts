@@ -54,8 +54,8 @@ confirmed: boolean | null;
 
 interface IError {
 __typename: "Error";
-path: string;
-message: string;
+path: string | null;
+message: string | null;
 }
 
 interface IMutation {
@@ -187,8 +187,8 @@ lastName: string;
 interface IDefResponse {
 __typename: "def_Response";
 ok: boolean;
-error: IError | null;
-success: IGenericResponse | null;
+error: Array<IError> | null;
+success: Array<IGenericResponse> | null;
 }
 
 interface IGenericResponse {

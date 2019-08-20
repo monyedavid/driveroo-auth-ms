@@ -52,7 +52,7 @@ export class Auth {
         try {
             await schema.validate(body, { abortEarly: false });
         } catch (error) {
-            return formatYupError(error);
+            return { ok: false, error: formatYupError(error) };
         }
 
         const userAlreadyExists = await Models[model].findOne({
@@ -104,6 +104,7 @@ export class Auth {
         );
         // console.log(url, "THIS URL GEN. FROM START_SERVER()")
         // console.log(link,)
+
         return {
             ok: true,
             success: [
