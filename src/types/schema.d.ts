@@ -105,21 +105,11 @@ model: string;
 interface IUpDriverParams {
 dob: string;
 mothers_maiden_name: string;
-primary_location: IUpDriverParamsLocation;
-secondary_location: IUpDriverParamsLocation;
-tertiary_location: IUpDriverParamsLocation;
+primary_location: string;
+secondary_location: string;
+tertiary_location: string;
 bank_bvn: string;
 bank_?: Array<IUpDriverParamsBank | null> | null;
-}
-
-interface IUpDriverParamsLocation {
-address: string;
-landmark: string;
-city: string;
-country?: string | null;
-state: string;
-housenumber: string;
-street: string;
 }
 
 interface IUpDriverParamsBank {
@@ -214,6 +204,16 @@ password: string;
 firstName: string;
 lastName: string;
 mobile: string;
+}
+
+interface IUpDriverParamsLocation {
+address: string;
+landmark: string;
+city: string;
+country?: string | null;
+state: string;
+housenumber: string;
+street: string;
 }
 
 interface IUserr {

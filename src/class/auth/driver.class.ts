@@ -70,15 +70,15 @@ export class DriverProfile {
             }
 
             // FOR PRIMARY LOCATION
-            const primary_location_co_ordinates = await dms.retrieveGeoCordinates(
-                {
-                    country: params.primary_location.country
-                        ? params.primary_location.country
-                        : "nigeria",
-                    city: params.primary_location.city,
-                    housenumber: params.primary_location.housenumber,
-                    street: params.primary_location.street
-                }
+            let primary_location_fr: any;
+            if (params.primary_location.includes("nigeria"))
+                primary_location_fr = params.primary_location;
+
+            if (!params.primary_location.includes("nigeria"))
+                primary_location_fr =
+                    params.primary_location.trim() + " nigeria";
+            const primary_location_co_ordinates = await dms.retriveGeoCordinatedFreeform(
+                { fft: primary_location_fr }
             );
 
             const plco =
@@ -102,15 +102,14 @@ export class DriverProfile {
             updateData.primary_location["Longitude"] =
                 plco.co_ordinates.Longitude;
 
-            const secondary_location_co_ordinates = await dms.retrieveGeoCordinates(
-                {
-                    country: params.secondary_location.country
-                        ? params.secondary_location.country
-                        : "nigeria",
-                    city: params.secondary_location.city,
-                    housenumber: params.secondary_location.housenumber,
-                    street: params.secondary_location.street
-                }
+            let sec_location_fr: any;
+            if (params.secondary_location.includes("nigeria"))
+                sec_location_fr = params.secondary_location;
+            if (!params.primary_location.includes("nigeria"))
+                sec_location_fr = params.secondary_location.trim() + " nigeria";
+
+            const secondary_location_co_ordinates = await dms.retriveGeoCordinatedFreeform(
+                { fft: sec_location_fr }
             );
 
             const slco =
@@ -134,15 +133,15 @@ export class DriverProfile {
             updateData.secondary_location["Longitude"] =
                 plco.co_ordinates.Longitude;
 
-            const tertiary_location_co_ordinates = await dms.retrieveGeoCordinates(
-                {
-                    country: params.tertiary_location.country
-                        ? params.tertiary_location.country
-                        : "nigeria",
-                    city: params.tertiary_location.city,
-                    housenumber: params.tertiary_location.housenumber,
-                    street: params.tertiary_location.street
-                }
+            let tert_location_fr: any;
+            if (params.secondary_location.includes("nigeria"))
+                tert_location_fr = params.secondary_location;
+            if (!params.primary_location.includes("nigeria"))
+                tert_location_fr =
+                    params.secondary_location.trim() + " nigeria";
+
+            const tertiary_location_co_ordinates = await dms.retriveGeoCordinatedFreeform(
+                { fft: tert_location_fr }
             );
 
             const tlco =

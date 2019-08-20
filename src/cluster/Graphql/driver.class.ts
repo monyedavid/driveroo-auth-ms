@@ -70,5 +70,47 @@ export class DriverMs {
         });
     }
 
+    public async retriveGeoCordinatedFreeform({ fft }: HereMaps.gcpa) {
+        return rp.post(this.url, {
+            ...this.options,
+            body: {
+                query: `
+                {
+                  generateCo_ordinates(
+                     ffa: true,
+                    ff_addreess: {fft: "${fft}"}
+                  ) {
+                    __typename
+                    ... on Error {
+                      path
+                      message
+                    }
+                
+                    ... on gco_response {
+                      co_ordinates {
+                        Latitude
+                        Longitude
+                      }
+                      address {
+                        Label
+                        County
+                        State
+                        City
+                        County
+                        Street
+                        AdditionalData {
+                          key
+                          value
+                        }
+                      }
+                    }
+                  }
+                }
+                
+                `
+            }
+        });
+    }
+
     private queryGen() {}
 }

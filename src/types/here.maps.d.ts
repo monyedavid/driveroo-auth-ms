@@ -1,9 +1,9 @@
 declare namespace HereMaps {
     interface gcpa {
-        country: string;
-        housenumber: string;
-        city: string;
-        street: string;
+        country?: string;
+        housenumber?: string;
+        city?: string;
+        street?: string;
         fft?: string;
     }
 

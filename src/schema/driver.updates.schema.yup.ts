@@ -16,9 +16,9 @@ const bank_ = yup.object().shape({
 export const driverFirstUpdateschema = yup.object().shape({
     dob: yup.string(),
     mothers_maiden_name: yup.string(),
-    primary_location: locationSchema,
-    secondary_location: locationSchema,
-    tertiary_location: locationSchema,
+    primary_location: yup.string(),
+    secondary_location: yup.string(),
+    tertiary_location: yup.string(),
     bank_bvn: yup
         .string()
         .min(11)
