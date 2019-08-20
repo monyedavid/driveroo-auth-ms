@@ -22,12 +22,15 @@ export const resolvers: ResolverMap = {
             if (args.model === "user")
                 return await service.register(args.params, "user");
 
-            return [
-                {
-                    path: "Register",
-                    message: "Unknown Model | For the developer"
-                }
-            ];
+            return {
+                ok: false,
+                error: [
+                    {
+                        path: "Register",
+                        message: "Unknown Model | For the developer"
+                    }
+                ]
+            };
         }
     }
 };
