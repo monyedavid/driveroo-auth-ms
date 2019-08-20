@@ -29,20 +29,26 @@ export const resolvers: ResolverMap = {
             }
 
             if (invalid)
-                return [
-                    {
-                        path: "Authentication",
-                        message:
-                            "Cannot Validate Authentication of registration token, please request for another from an admin "
-                    }
-                ];
+                return {
+                    ok: false,
+                    success: [
+                        {
+                            path: "Authentication",
+                            message:
+                                "Cannot Validate Authentication of registration token, please request for another from an admin "
+                        }
+                    ]
+                };
 
-            return [
-                {
-                    path: "Register",
-                    message: "Unknown Model | For the developer"
-                }
-            ];
+            return {
+                ok: false,
+                error: [
+                    {
+                        path: "Register",
+                        message: "Unknown Model | For the developer"
+                    }
+                ]
+            };
         }
     }
 };

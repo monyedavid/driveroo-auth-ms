@@ -62,12 +62,12 @@ interface IMutation {
 __typename: "Mutation";
 firstUpdate: Array<driver_Response> | null;
 admin_: Array<admin_response> | null;
-admin_link_register: Array<IDefResponse> | null;
+admin_link_register: IDefResponse;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IDefLoginResponse> | null;
 logout: boolean | null;
-register: Array<IDefResponse> | null;
+register: IDefResponse;
 }
 
 interface IFirstUpdateOnMutationArguments {
@@ -186,7 +186,13 @@ lastName: string;
 
 interface IDefResponse {
 __typename: "def_Response";
-ok: boolean | null;
+ok: boolean;
+error: IError | null;
+success: IGenericResponse | null;
+}
+
+interface IGenericResponse {
+__typename: "GenericResponse";
 path: string;
 message: string;
 }

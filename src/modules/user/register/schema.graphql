@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-    register(params: reg_Params!, model: String!): [def_Response!]
+    register(params: reg_Params!, model: String!): def_Response!
 }
 
 input reg_Params {

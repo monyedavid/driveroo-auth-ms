@@ -64,20 +64,26 @@ export class Auth {
         });
 
         if (userAlreadyExistsMobile)
-            return [
-                {
-                    path: "mobile",
-                    message: duplicateMobile
-                }
-            ];
+            return {
+                ok: false,
+                error: [
+                    {
+                        path: "mobile",
+                        message: duplicateMobile
+                    }
+                ]
+            };
 
         if (userAlreadyExists)
-            return [
-                {
-                    path: "email",
-                    message: duplicateEmail
-                }
-            ];
+            return {
+                ok: false,
+                error: [
+                    {
+                        path: "email",
+                        message: duplicateEmail
+                    }
+                ]
+            };
 
         // const hashedPassword = await bcrypt.hash(password, 10);
         const user: any = new Models[model]({
@@ -98,13 +104,15 @@ export class Auth {
         );
         // console.log(url, "THIS URL GEN. FROM START_SERVER()")
         // console.log(link,)
-        return [
-            {
-                ok: true,
-                path: "Register",
-                message: `A mail has been sent to email @${email}, please use the link provided to confirm email`
-            }
-        ];
+        return {
+            ok: true,
+            success: [
+                {
+                    path: "Register",
+                    message: `A mail has been sent to email @${email}, please use the link provided to confirm email`
+                }
+            ]
+        };
     }
 
     async login(
