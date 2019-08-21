@@ -325,12 +325,12 @@ export class Auth {
             if (userWithMobile)
                 return {
                     ok: true,
-                    gotMail: true
+                    gotMobile: true
                 };
             if (!userWithMobile)
                 return {
                     ok: true,
-                    gotMail: false
+                    gotMobile: false
                 };
         }
 
