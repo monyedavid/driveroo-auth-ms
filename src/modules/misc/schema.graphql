@@ -1,0 +1,10 @@
+type Query {
+    previousUser(email: String, mobile: String): previousUserResponse!
+}
+
+type previousUserResponse {
+    ok: Boolean
+    gotMail: Boolean
+    gotMobile: Boolean
+    error: Error
+}

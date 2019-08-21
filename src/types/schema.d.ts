@@ -22,11 +22,31 @@ column: number;
 
 interface IQuery {
 __typename: "Query";
+previousUser: IPreviousUserResponse;
 bye3: string | null;
 bye2: string | null;
 dummy: string | null;
 me: me_response | null;
 bye: string | null;
+}
+
+interface IPreviousUserOnQueryArguments {
+email?: string | null;
+mobile?: string | null;
+}
+
+interface IPreviousUserResponse {
+__typename: "previousUserResponse";
+ok: boolean | null;
+gotMail: boolean | null;
+gotMobile: boolean | null;
+error: IError | null;
+}
+
+interface IError {
+__typename: "Error";
+path: string | null;
+message: string | null;
 }
 
 type me_response = IMeData | IError;
@@ -50,12 +70,6 @@ mobile: string | null;
 email: string | null;
 avatar: string | null;
 confirmed: boolean | null;
-}
-
-interface IError {
-__typename: "Error";
-path: string | null;
-message: string | null;
 }
 
 interface IMutation {

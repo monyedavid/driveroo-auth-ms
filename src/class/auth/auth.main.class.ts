@@ -299,6 +299,52 @@ export class Auth {
 
     public async logout(body: any) {}
 
+    public async previousUser({ email, mobile }, model: string = "driver") {
+        if (email) {
+            const userWithMail = await Models[model].findOne({
+                email
+            });
+
+            if (userWithMail)
+                return {
+                    ok: true,
+                    gotMail: true
+                };
+            if (!userWithMail)
+                return {
+                    ok: true,
+                    gotMail: false
+                };
+        }
+
+        if (mobile) {
+            const userWithMobile = await Models[model].findOne({
+                mobile
+            });
+
+            if (userWithMobile)
+                return {
+                    ok: true,
+                    gotMail: true
+                };
+            if (!userWithMobile)
+                return {
+                    ok: true,
+                    gotMail: false
+                };
+        }
+
+        return {
+            ok: false,
+            error: [
+                {
+                    path: "Validation",
+                    message: "An error occured while validating credentials"
+                }
+            ]
+        };
+    }
+
     public async sendForgotPasswordEmailAndLockAccount(body: any) {}
 
     public async forgotPasswordChange(body: any) {}
