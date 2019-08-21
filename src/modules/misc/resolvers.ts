@@ -9,7 +9,7 @@ export const resolvers: ResolverMap = {
             { session, url }
         ) => {
             const service = new Auth(url);
-            await service.previousUser({ email, mobile });
+            return await service.previousUser({ email, mobile });
         }
     }
 };
