@@ -1,3 +1,4 @@
+import * as uuidv4 from "uuid/v4";
 import { DriverModel } from "../../models/Drivers";
 import { Session } from "../../types/graphql-utile";
 import { driverFirstUpdateschema } from "../../schema/driver.updates.schema.yup";
@@ -5,6 +6,7 @@ import { formatYupError } from "../../utils/formatYupError";
 import { Bank } from "./bank.security";
 import { DriverMs } from "../../cluster/Graphql/driver.class";
 import { inProd } from "../../index.start-server";
+import { cloudinary } from "../../utils/uploads/clodinary";
 
 /**
  * await cloudinary(
@@ -76,6 +78,17 @@ export class DriverProfile {
             }
 
             // avatar and driverLiscence update here
+            updateData["avatar"] = await cloudinary(
+                updateData.avatar,
+                `${name}${uuidv4()}`,
+                `${name}${uuidv4()}`
+            );
+
+            updateData["driversLicense"] = await cloudinary(
+                updateData.driversLicense,
+                `${name}${uuidv4()}`,
+                `${name}${uuidv4()}`
+            );
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;
