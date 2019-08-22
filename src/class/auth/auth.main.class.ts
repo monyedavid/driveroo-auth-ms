@@ -220,17 +220,17 @@ export class Auth {
             return { ok: false, error: erroresponse };
         }
 
-        if (!user.confirmed) {
-            return {
-                ok: false,
-                error: [
-                    {
-                        path: "email",
-                        message: confirmEmailError
-                    }
-                ]
-            };
-        }
+        // if (!user.confirmed) {
+        //     return {
+        //         ok: false,
+        //         error: [
+        //             {
+        //                 path: "email",
+        //                 message: confirmEmailError
+        //             }
+        //         ]
+        //     };
+        // }
 
         if (user.forgotPasswordLock) {
             return {
@@ -262,7 +262,19 @@ export class Auth {
             await redis.lpush(`${userseesionidPrefix}${user.id}`, sessionID);
         }
 
-        return { ok: true, sessionId: sessionID, model: session.model };
+        const returnData = {
+            ok: true,
+            sessionId: sessionID,
+            model: session.model
+        };
+
+        if (model === "driver") {
+            returnData["confirmed"] = user.confirmed;
+            returnData["incompleteProfile"] =
+                user.driversLicense && user.avatar ? false : true;
+        }
+
+        return returnData;
     }
 
     public async me(session: Session) {

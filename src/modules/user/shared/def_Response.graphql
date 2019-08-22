@@ -7,6 +7,8 @@ type def_Response {
 type def_Login_Response {
     path: String
     message: String
+    incompleteProfile: Boolean
+    confirmed: Boolean
     sessionId: String
     model: String
 }
