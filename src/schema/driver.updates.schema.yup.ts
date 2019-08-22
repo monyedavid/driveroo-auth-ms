@@ -23,5 +23,6 @@ export const driverFirstUpdateschema = yup.object().shape({
         .string()
         .min(11)
         .max(11),
-    bank_: yup.array(bank_)
+    bank_: yup.array(bank_),
+    avatar: yup.mixed()
 });

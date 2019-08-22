@@ -43,6 +43,12 @@ const LocationSchema = new Schema({
 // Create Schema
 const DriverSchema = new Schema(
     {
+        avatar: {
+            type: String
+        },
+        driversLicense: {
+            type: String
+        },
         active: {
             type: Boolean,
             required: true,
@@ -77,9 +83,6 @@ const DriverSchema = new Schema(
             type: Boolean,
             required: true,
             default: false
-        },
-        avatar: {
-            type: String
         },
         dob: {
             type: String

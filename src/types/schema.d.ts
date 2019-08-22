@@ -124,6 +124,8 @@ secondary_location: string;
 tertiary_location: string;
 bank_bvn: string;
 bank_?: Array<IUpDriverParamsBank | null> | null;
+avatar: any;
+driversLicense: any;
 }
 
 interface IUpDriverParamsBank {

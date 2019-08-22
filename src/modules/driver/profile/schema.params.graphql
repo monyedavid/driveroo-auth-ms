@@ -25,6 +25,8 @@ input up_Driver_Params_Location {
     street: String!
 }
 
+scalar Upload
+
 input up_Driver_Params_bank_ {
     account_number: String
     account_name: String
@@ -47,7 +49,6 @@ type Driver implements User {
     primary_location_co_ord: Co_ordinates
     secondary_location_co_ord: Co_ordinates
     tertiary_location_co_ord: Co_ordinates
-
     bvn: String
 }
 
@@ -59,4 +60,6 @@ input up_Driver_Params {
     tertiary_location: String!
     bank_bvn: String!
     bank_: [up_Driver_Params_bank_]
+    avatar: Upload!
+    driversLicense: Upload!
 }

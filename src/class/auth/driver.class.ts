@@ -6,6 +6,14 @@ import { Bank } from "./bank.security";
 import { DriverMs } from "../../cluster/Graphql/driver.class";
 import { inProd } from "../../index.start-server";
 
+/**
+ * await cloudinary(
+ * logo,
+ * ${name}${uuidv4()}`,
+ * ${name}${uuidv4()}`
+ *
+ */
+
 export class DriverProfile {
     url?: string;
     constructor(url?: string) {
@@ -66,6 +74,8 @@ export class DriverProfile {
                     }
                 };
             }
+
+            // avatar and driverLiscence update here
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;
