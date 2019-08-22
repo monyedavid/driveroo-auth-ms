@@ -35,8 +35,7 @@ export const resolvers: ResolverMap = {
             if (result.ok) {
                 return [
                     {
-                        sessionId: result.sessionId,
-                        model: result.model
+                        ...result
                     }
                 ];
             }
