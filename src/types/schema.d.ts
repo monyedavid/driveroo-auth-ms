@@ -40,7 +40,16 @@ __typename: "previousUserResponse";
 ok: boolean | null;
 gotMail: boolean | null;
 gotMobile: boolean | null;
+user: IMiniUser | null;
 error: IError | null;
+}
+
+interface IMiniUser {
+__typename: "MiniUser";
+firstName: string;
+lastName: string;
+email: string;
+mobile: string;
 }
 
 interface IError {

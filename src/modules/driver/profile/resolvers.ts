@@ -1,5 +1,4 @@
 import { ResolverMap } from "../../../types/graphql-utile";
-import { Auth } from "../../../class/auth/auth.main.class";
 import { DriverProfile } from "../../../class/auth/driver.class";
 
 export const resolvers: ResolverMap = {

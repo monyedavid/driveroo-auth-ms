@@ -308,6 +308,12 @@ export class Auth {
             if (userWithMail)
                 return {
                     ok: true,
+                    user: {
+                        firstName: userWithMail.firstName,
+                        lastName: userWithMail.lastName,
+                        email,
+                        mobile: userWithMail.mobile
+                    },
                     gotMail: true
                 };
             if (!userWithMail)
@@ -325,6 +331,12 @@ export class Auth {
             if (userWithMobile)
                 return {
                     ok: true,
+                    user: {
+                        firstName: userWithMobile.firstName,
+                        lastName: userWithMobile.lastName,
+                        email: userWithMobile.email,
+                        mobile
+                    },
                     gotMobile: true
                 };
             if (!userWithMobile)
