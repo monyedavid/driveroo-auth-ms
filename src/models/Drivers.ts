@@ -49,6 +49,9 @@ const DriverSchema = new Schema(
         driversLicense: {
             type: String
         },
+        gender: {
+            type: String
+        },
         active: {
             type: Boolean,
             required: true,

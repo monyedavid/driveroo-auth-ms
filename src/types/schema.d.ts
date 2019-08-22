@@ -154,6 +154,7 @@ interface IDriver {
 __typename: "Driver";
 active: boolean | null;
 confirmed: boolean | null;
+incompleteProfile: boolean | null;
 firstName: string | null;
 lastName: string | null;
 mobile: string | null;

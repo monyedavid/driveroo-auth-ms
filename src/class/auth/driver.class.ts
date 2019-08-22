@@ -209,6 +209,10 @@ export class DriverProfile {
                 success: {
                     active: updatedUser.active,
                     confirmed: updatedUser.confirmed,
+                    incompleteProfile:
+                        updatedUser.driversLicense && updatedUser.avatar
+                            ? false
+                            : true,
                     firstName: updatedUser.firstName,
                     lastName: updatedUser.lastName,
                     mobile: updatedUser.mobile,
