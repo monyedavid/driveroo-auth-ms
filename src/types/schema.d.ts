@@ -215,6 +215,8 @@ interface IDefLoginResponse {
 __typename: "def_Login_Response";
 path: string | null;
 message: string | null;
+incompleteProfile: boolean | null;
+confirmed: boolean | null;
 sessionId: string | null;
 model: string | null;
 }

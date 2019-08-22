@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
         return res.json({ ok: true });
     }
     if (!result.ok) {
-        return res.status(422).json({ ok: false, error: result.error });
+        return res.status(422).json({ ok: false, ...result });
     }
 
     return res.status(422).json({ ok: false });
