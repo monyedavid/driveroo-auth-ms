@@ -79,13 +79,16 @@ export class DriverProfile {
             }
 
             updateData["avatar"] = await cloudinary(
-                params.avatar,
+                `data:image/${mocksession.avatarExt};base64,${params.avatar}`,
                 `${user.firstName}${uuidv4()}`,
                 `${user.firstName}${uuidv4()}`
             );
 
-            console.log(updateData["avatar"], "avatar data");
-            console.log(updateData["driversLicense"], "drivers liscence");
+            updateData["driversLicense"] = await cloudinary(
+                `data:image/${mocksession.driversExt};base64,${params.driversLicense}`,
+                `${user.firstName}${uuidv4()}`,
+                `${user.firstName}${uuidv4()}`
+            );
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;

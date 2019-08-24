@@ -147,6 +147,8 @@ name?: string | null;
 interface IMockSession {
 id: string;
 token: string;
+driversExt: string;
+avatarExt: string;
 }
 
 interface IDriverResponse {

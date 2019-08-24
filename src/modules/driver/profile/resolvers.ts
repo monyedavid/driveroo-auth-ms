@@ -10,10 +10,10 @@ export const resolvers: ResolverMap = {
         firstUpdate: async (
             _,
             { params, mock }: GQL.IFirstUpdateOnMutationArguments,
-            { session }
+            __
         ) => {
-            console.log(mock, "Drivers | Data | MOCK");
-            if (!session.userId) {
+            console.log("mock data |", mock);
+            if (!mock.id) {
                 return {
                     ok: false,
                     error: [

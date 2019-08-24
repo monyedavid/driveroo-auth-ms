@@ -11,4 +11,6 @@ type Mutation {
 input MockSession {
     id: ID!
     token: String!
+    driversExt: String!
+    avatarExt: String!
 }
