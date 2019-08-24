@@ -79,6 +79,7 @@ mobile: string | null;
 email: string | null;
 avatar: string | null;
 confirmed: boolean | null;
+id: string | null;
 }
 
 interface IMutation {
@@ -126,6 +127,7 @@ model: string;
 }
 
 interface IUpDriverParams {
+id: string;
 dob: string;
 mothers_maiden_name: string;
 primary_location: string;

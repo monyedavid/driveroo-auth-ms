@@ -13,6 +13,7 @@ export const resolvers: ResolverMap = {
             { session }
         ) => {
             console.log(session, "session data");
+            console.log(params.driversLicense, "Drivers | Lisence");
             if (!session.userId) {
                 return {
                     ok: false,

@@ -6,6 +6,7 @@ interface User {
     email: String
     avatar: String
     confirmed: Boolean
+    id: ID
 }
 
 type me_data {

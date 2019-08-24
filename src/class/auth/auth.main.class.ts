@@ -287,6 +287,7 @@ export class Auth {
                 return {
                     ok: true,
                     user: {
+                        id: user._id,
                         active: user.active,
                         firstName: user.firstName,
                         lastName: user.lastName,

@@ -6,7 +6,7 @@ import { formatYupError } from "../../utils/formatYupError";
 import { Bank } from "./bank.security";
 import { DriverMs } from "../../cluster/Graphql/driver.class";
 import { inProd } from "../../index.start-server";
-import { cloudinary } from "../../utils/uploads/clodinary";
+import { cloudinary } from "../../utils/uploads/cloudinary";
 
 /**
  * await cloudinary(
@@ -74,6 +74,12 @@ export class DriverProfile {
                     }
                 };
             }
+
+            updateData["avatar"] = await cloudinary(
+                params.avatar,
+                `${user.firstName}${uuidv4()}`,
+                `${user.firstName}${uuidv4()}`
+            );
 
             console.log(updateData["avatar"], "avatar data");
             console.log(updateData["driversLicense"], "drivers liscence");

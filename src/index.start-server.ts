@@ -116,7 +116,8 @@ export const startServer = async () => {
                 process.env.DRIVER_MS
             ]
         },
-        port
+        port,
+        bodyParserOptions: { limit: "10mb" }
     });
 
     console.log(`Server is running on localhost:${port}`);
