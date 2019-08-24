@@ -133,8 +133,9 @@ secondary_location: string;
 tertiary_location: string;
 bank_bvn: string;
 bank_?: Array<IUpDriverParamsBank | null> | null;
-avatar: any;
-driversLicense: any;
+avatar: string;
+driversLicense: string;
+driverLicenseNumber: string;
 }
 
 interface IUpDriverParamsBank {
@@ -228,6 +229,7 @@ password: string;
 firstName: string;
 lastName: string;
 mobile: string;
+gender?: string | null;
 }
 
 interface IDuLocation {

@@ -12,4 +12,5 @@ input reg_Params {
     firstName: String!
     lastName: String!
     mobile: String!
+    gender: String
 }

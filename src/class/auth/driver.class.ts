@@ -60,9 +60,7 @@ export class DriverProfile {
                         error: [
                             {
                                 path: "Bank Verification",
-                                message: `BVN verification failed :REASON: ${
-                                    bvnVerfication.message
-                                }`
+                                message: `BVN verification failed :REASON: ${bvnVerfication.message}`
                             }
                         ]
                     };
@@ -77,18 +75,8 @@ export class DriverProfile {
                 };
             }
 
-            // avatar and driverLiscence update here
-            updateData["avatar"] = await cloudinary(
-                updateData.avatar,
-                `${name}${uuidv4()}`,
-                `${name}${uuidv4()}`
-            );
-
-            updateData["driversLicense"] = await cloudinary(
-                updateData.driversLicense,
-                `${name}${uuidv4()}`,
-                `${name}${uuidv4()}`
-            );
+            console.log(updateData["avatar"], "avatar data");
+            console.log(updateData["driversLicense"], "drivers liscence");
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;

@@ -49,6 +49,9 @@ const DriverSchema = new Schema(
         driversLicense: {
             type: String
         },
+        driverLicenseNumber: {
+            type: String
+        },
         gender: {
             type: String
         },

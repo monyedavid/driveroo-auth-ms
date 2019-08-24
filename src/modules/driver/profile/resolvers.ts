@@ -12,6 +12,7 @@ export const resolvers: ResolverMap = {
             { params }: GQL.IFirstUpdateOnMutationArguments,
             { session }
         ) => {
+            console.log(session, "session data");
             if (!session.userId) {
                 return {
                     ok: false,
