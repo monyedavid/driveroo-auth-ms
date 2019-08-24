@@ -33,7 +33,7 @@ input up_Driver_Params_bank_ {
     name: String
 }
 
-type Driver implements User {
+type Driver {
     active: Boolean
     confirmed: Boolean
     incompleteProfile: Boolean
@@ -54,7 +54,6 @@ type Driver implements User {
 }
 
 input up_Driver_Params {
-    id: ID!
     dob: String!
     mothers_maiden_name: String!
     primary_location: String!

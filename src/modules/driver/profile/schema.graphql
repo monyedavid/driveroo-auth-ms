@@ -5,5 +5,10 @@ type driver_Response {
 }
 
 type Mutation {
-    firstUpdate(params: up_Driver_Params!): driver_Response!
+    firstUpdate(params: up_Driver_Params!, mock: MockSession!): driver_Response!
+}
+
+input MockSession {
+    id: ID!
+    token: String!
 }

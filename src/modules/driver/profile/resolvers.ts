@@ -9,11 +9,10 @@ export const resolvers: ResolverMap = {
     Mutation: {
         firstUpdate: async (
             _,
-            { params }: GQL.IFirstUpdateOnMutationArguments,
+            { params, mock }: GQL.IFirstUpdateOnMutationArguments,
             { session }
         ) => {
-            console.log(session, "session data");
-            console.log(params.driversLicense, "Drivers | Lisence");
+            console.log(mock, "Drivers | Data | MOCK");
             if (!session.userId) {
                 return {
                     ok: false,
@@ -27,7 +26,7 @@ export const resolvers: ResolverMap = {
                 };
             }
 
-            return await new DriverProfile().firstUpdate(params, session);
+            return await new DriverProfile().firstUpdate(params, mock);
         }
     }
 };

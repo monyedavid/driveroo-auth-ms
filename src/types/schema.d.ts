@@ -64,11 +64,9 @@ type me_response = IMeData | IError;
 
 interface IMeData {
 __typename: "me_data";
-user: User | null;
+user: IUser | null;
 token: string | null;
 }
-
-type User = IDriver;
 
 interface IUser {
 __typename: "User";
@@ -96,6 +94,7 @@ register: IDefResponse;
 
 interface IFirstUpdateOnMutationArguments {
 params: IUpDriverParams;
+mock: IMockSession;
 }
 
 interface IAdminOnMutationArguments {
@@ -127,7 +126,6 @@ model: string;
 }
 
 interface IUpDriverParams {
-id: string;
 dob: string;
 mothers_maiden_name: string;
 primary_location: string;
@@ -144,6 +142,11 @@ interface IUpDriverParamsBank {
 account_number?: string | null;
 account_name?: string | null;
 name?: string | null;
+}
+
+interface IMockSession {
+id: string;
+token: string;
 }
 
 interface IDriverResponse {

@@ -12,14 +12,14 @@ export class DriverMs {
         };
     };
 
-    constructor(session: Session, url?: string) {
+    constructor({ token }: GQL.IMockSession, url?: string) {
         this.url = url ? url : (process.env.DRIVER_MS as string);
         this.options = {
             withCredentials: true,
             json: true,
             jar: rp.jar(),
             headers: {
-                Authorization: `Bearer ${session.token}`
+                Authorization: `Bearer ${token}`
             }
         };
     }

@@ -1,4 +1,4 @@
-interface User {
+type User {
     active: Boolean
     firstName: String
     lastName: String

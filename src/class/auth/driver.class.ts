@@ -22,7 +22,10 @@ export class DriverProfile {
         this.url = url;
     }
 
-    async firstUpdate(params: GQL.IUpDriverParams, session: Session) {
+    async firstUpdate(
+        params: GQL.IUpDriverParams,
+        mocksession: GQL.IMockSession
+    ) {
         let updateData;
         let bvnVerfication;
         // do the data validation
@@ -35,7 +38,7 @@ export class DriverProfile {
         }
 
         const user: any = await DriverModel.findOne({
-            _id: session.userId
+            _id: mocksession.id
         });
 
         updateData = {
@@ -87,11 +90,11 @@ export class DriverProfile {
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;
             if (!inProd) {
-                dms = new DriverMs(session, "http://localhost:4100");
+                dms = new DriverMs(mocksession, "http://localhost:4100");
             }
 
             if (inProd) {
-                dms = new DriverMs(session);
+                dms = new DriverMs(mocksession);
             }
 
             // FOR PRIMARY LOCATION
@@ -193,7 +196,7 @@ export class DriverProfile {
             // INSERT INTO UPDATED DATA
 
             const updatedUser: any = await DriverModel.findOneAndUpdate(
-                { _id: session.userId },
+                { _id: mocksession.id },
                 { $set: updateData },
                 { new: true }
             );
