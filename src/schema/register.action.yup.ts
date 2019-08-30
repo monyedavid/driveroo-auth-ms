@@ -7,7 +7,7 @@ import {
 
 export const registerPasswordValidation = yup
     .string()
-    .min(3, passwordNotLongEnough)
+    .min(8, passwordNotLongEnough)
     .max(255);
 
 export const schema = yup.object().shape({
