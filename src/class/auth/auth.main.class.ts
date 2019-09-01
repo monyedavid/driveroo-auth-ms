@@ -12,7 +12,7 @@ import { createConfirmEmailLink } from "../../utils/createConfirmEmailLink";
 import { redis } from "../../cache";
 import Models from "../../models/main.models.exports";
 import { subject, confirmation } from "../../constants/registration.messages";
-import { confirmEmailError, userseesionidPrefix } from "../../constant";
+import { userseesionidPrefix } from "../../constant";
 import { Session } from "../../types/graphql-utile";
 import { signTokenStore } from "../../utils/generateTohen";
 
@@ -46,7 +46,7 @@ export class Auth {
         this.url = url;
     }
 
-    async register(body: AUTH.IRegister, model: AUTH.model) {
+    public async register(body: AUTH.IRegister, model: AUTH.model) {
         const { email, mobile } = body;
 
         try {
@@ -116,7 +116,7 @@ export class Auth {
         };
     }
 
-    async login(
+    public async login(
         body: AUTH.ILogin,
         session: Session,
         sessionID: string,

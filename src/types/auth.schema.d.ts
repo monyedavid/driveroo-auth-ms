@@ -7,6 +7,7 @@ declare namespace AUTH {
         password: string;
         confirmed?: Boolean;
         forgotPasswordLock?: Boolean;
+        gender?: string;
         avatar?: string;
     }
 
