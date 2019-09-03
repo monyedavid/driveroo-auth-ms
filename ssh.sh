@@ -1,0 +1,1 @@
+ssh root@198.199.88.94 "docker pull lilmakijr/d-auth-ms:latest"
