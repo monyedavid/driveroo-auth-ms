@@ -1,5 +1,4 @@
 import * as rp from "request-promise";
-import { Session } from "../../types/graphql-utile";
 
 export class DriverMs {
     url: string;
@@ -13,7 +12,7 @@ export class DriverMs {
     };
 
     constructor({ token }: GQL.IMockSession, url?: string) {
-        this.url = url ? url : (process.env.DRIVER_MS as string);
+        this.url = url ? url : (process.env.DRIVER_MS_OCEAN as string);
         this.options = {
             withCredentials: true,
             json: true,
