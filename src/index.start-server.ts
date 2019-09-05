@@ -117,7 +117,7 @@ export const startServer = async () => {
             ]
         },
         port,
-        bodyParserOptions: { limit: "10mb" }
+        bodyParserOptions: { limit: "100mb" }
     });
 
     console.log(`Server is running on localhost:${port}`);
