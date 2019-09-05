@@ -27,7 +27,7 @@ export class DriverProfile {
         mocksession: GQL.IMockSession
     ) {
         let updateData;
-        let bvnVerfication;
+        // let bvnVerfication;
         // do the data validation
         try {
             await driverFirstUpdateschema.validate(params, {
@@ -55,28 +55,28 @@ export class DriverProfile {
                 };
             }
 
-            if (!user.bank_bvn) {
-                bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
-                if (!bvnVerfication.status) {
-                    return {
-                        ok: false,
-                        error: [
-                            {
-                                path: "Bank Verification",
-                                message: `BVN verification failed :REASON: ${bvnVerfication.message}`
-                            }
-                        ]
-                    };
-                }
+            // if (!user.bank_bvn) {
+            //     bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
+            //     if (!bvnVerfication.status) {
+            //         return {
+            //             ok: false,
+            //             error: [
+            //                 {
+            //                     path: "Bank Verification",
+            //                     message: `BVN verification failed :REASON: ${bvnVerfication.message}`
+            //                 }
+            //             ]
+            //         };
+            //     }
 
-                updateData = {
-                    ...updateData,
-                    ...params,
-                    resolved_bvn_data: {
-                        ...bvnVerfication.data
-                    }
-                };
-            }
+            //     updateData = {
+            //         ...updateData,
+            //         ...params,
+            //         resolved_bvn_data: {
+            //             ...bvnVerfication.data
+            //         }
+            //     };
+            // }
 
             updateData["avatar"] = await cloudinary(
                 `data:image/${mocksession.avatarExt};base64,${params.avatar}`,
