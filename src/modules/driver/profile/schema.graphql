@@ -13,4 +13,5 @@ input MockSession {
     token: String!
     driversExt: String!
     avatarExt: String!
+    andriod: String!
 }

@@ -12,7 +12,7 @@ export const resolvers: ResolverMap = {
             { params, mock }: GQL.IFirstUpdateOnMutationArguments,
             __
         ) => {
-            console.log("mock data |", mock);
+            // console.log("mock data |", mock);
             if (!mock.id) {
                 return {
                     ok: false,

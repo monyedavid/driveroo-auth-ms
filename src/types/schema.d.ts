@@ -149,6 +149,7 @@ id: string;
 token: string;
 driversExt: string;
 avatarExt: string;
+andriod: string;
 }
 
 interface IDriverResponse {
