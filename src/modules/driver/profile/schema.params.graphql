@@ -61,7 +61,7 @@ input up_Driver_Params {
     tertiary_location: String!
     bank_bvn: String!
     bank_: [up_Driver_Params_bank_]
-    avatar: String!
-    driversLicense: String!
+    avatar: Upload!
+    driversLicense: Upload!
     driverLicenseNumber: String!
 }

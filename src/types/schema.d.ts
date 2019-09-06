@@ -133,8 +133,8 @@ secondary_location: string;
 tertiary_location: string;
 bank_bvn: string;
 bank_?: Array<IUpDriverParamsBank | null> | null;
-avatar: string;
-driversLicense: string;
+avatar: any;
+driversLicense: any;
 driverLicenseNumber: string;
 }
 
