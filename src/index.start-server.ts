@@ -111,6 +111,8 @@ export const startServer = async () => {
         cors: {
             credentials: true,
             origin: [
+                process.env.MOBILE_URL_,
+                process.env.MOBILE_URL_2,
                 process.env.UI_URL_DEV,
                 process.env.UI_URL,
                 process.env.DRIVER_MS
