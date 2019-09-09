@@ -78,17 +78,17 @@ export class DriverProfile {
             //     };
             // }
 
-            updateData["avatar"] = await cloudinary(
-                `data:image/${mocksession.avatarExt};base64,${params.avatar}`,
-                `${user.firstName}${uuidv4()}`,
-                `${user.firstName}${uuidv4()}`
-            );
+            // updateData["avatar"] = await cloudinary(
+            //     `data:image/${mocksession.avatarExt};base64,${params.avatar}`,
+            //     `${user.firstName}${uuidv4()}`,
+            //     `${user.firstName}${uuidv4()}`
+            // );
 
-            updateData["driversLicense"] = await cloudinary(
-                `data:image/${mocksession.driversExt};base64,${params.driversLicense}`,
-                `${user.firstName}${uuidv4()}`,
-                `${user.firstName}${uuidv4()}`
-            );
+            // updateData["driversLicense"] = await cloudinary(
+            //     `data:image/${mocksession.driversExt};base64,${params.driversLicense}`,
+            //     `${user.firstName}${uuidv4()}`,
+            //     `${user.firstName}${uuidv4()}`
+            // );
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;
