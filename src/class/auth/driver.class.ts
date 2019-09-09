@@ -55,6 +55,8 @@ export class DriverProfile {
                 };
             }
 
+            // git error no update or some shit
+
             // if (!user.bank_bvn) {
             //     bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
             //     if (!bvnVerfication.status) {
