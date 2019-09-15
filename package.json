@@ -73,7 +73,7 @@
         "request": "^2.88.0",
         "request-promise": "^4.2.4",
         "rimraf": "^2.6.3",
-        "shortid": "^2.2.14",
+        "shortid": "^2.2.15",
         "typeorm": "0.2.18",
         "uuid": "^3.3.2",
         "yup": "^0.27.0"

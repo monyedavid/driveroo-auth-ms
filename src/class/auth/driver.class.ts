@@ -6,7 +6,7 @@ import { formatYupError } from "../../utils/formatYupError";
 import { Bank } from "./bank.security";
 import { DriverMs } from "../../cluster/Graphql/driver.class";
 import { inProd } from "../../index.start-server";
-import { cloudinary } from "../../utils/uploads/cloudinary";
+import { processCloudinaryUpload } from "../../utils/uploads/cloudinary";
 
 /**
  * await cloudinary(
@@ -27,7 +27,7 @@ export class DriverProfile {
         mocksession: GQL.IMockSession
     ) {
         let updateData;
-        // let bvnVerfication;
+        let bvnVerfication;
         // do the data validation
         try {
             await driverFirstUpdateschema.validate(params, {
@@ -57,40 +57,38 @@ export class DriverProfile {
 
             // git error no update or some shit
 
-            // if (!user.bank_bvn) {
-            //     bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
-            //     if (!bvnVerfication.status) {
-            //         return {
-            //             ok: false,
-            //             error: [
-            //                 {
-            //                     path: "Bank Verification",
-            //                     message: `BVN verification failed :REASON: ${bvnVerfication.message}`
-            //                 }
-            //             ]
-            //         };
-            //     }
+            if (!user.bank_bvn) {
+                bvnVerfication = await new Bank()._resolveBvn(params.bank_bvn);
+                if (!bvnVerfication.status) {
+                    return {
+                        ok: false,
+                        error: [
+                            {
+                                path: "Bank Verification",
+                                message: `BVN verification failed :REASON: ${bvnVerfication.message}`
+                            }
+                        ]
+                    };
+                }
 
-            //     updateData = {
-            //         ...updateData,
-            //         ...params,
-            //         resolved_bvn_data: {
-            //             ...bvnVerfication.data
-            //         }
-            //     };
-            // }
+                updateData = {
+                    ...updateData,
+                    ...params,
+                    resolved_bvn_data: {
+                        ...bvnVerfication.data
+                    }
+                };
+            }
 
-            // updateData["avatar"] = await cloudinary(
-            //     `data:image/${mocksession.avatarExt};base64,${params.avatar}`,
-            //     `${user.firstName}${uuidv4()}`,
-            //     `${user.firstName}${uuidv4()}`
-            // );
+            const avatarDataUlr = await processCloudinaryUpload(params.avatar);
 
-            // updateData["driversLicense"] = await cloudinary(
-            //     `data:image/${mocksession.driversExt};base64,${params.driversLicense}`,
-            //     `${user.firstName}${uuidv4()}`,
-            //     `${user.firstName}${uuidv4()}`
-            // );
+            updateData["avatar"] = avatarDataUlr.resultUrl;
+
+            const driversLicenseDataUrl = await processCloudinaryUpload(
+                params.driversLicense
+            );
+
+            updateData["driversLicense"] = driversLicenseDataUrl;
 
             // SPREAD INTO UPDATED PARAMS THE CO-ORDINATES OF PRIMARY SECONDARY AND TERTIARY LOCATIONS
             let dms: DriverMs;

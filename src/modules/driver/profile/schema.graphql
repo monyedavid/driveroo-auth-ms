@@ -5,13 +5,23 @@ type driver_Response {
 }
 
 type Mutation {
-    firstUpdate(params: up_Driver_Params!, mock: MockSession!): driver_Response!
+    firstUpdate(
+        dob: String!
+        mothers_maiden_name: String!
+        primary_location: String!
+        secondary_location: String!
+        tertiary_location: String!
+        bank_bvn: String!
+        bank_: [up_Driver_Params_bank_]
+        avatar: Upload!
+        driversLicense: Upload!
+        driverLicenseNumber: String!
+        id: ID!
+        token: String!
+    ): driver_Response!
 }
 
 input MockSession {
     id: ID!
     token: String!
-    driversExt: String!
-    avatarExt: String!
-    andriod: String!
 }

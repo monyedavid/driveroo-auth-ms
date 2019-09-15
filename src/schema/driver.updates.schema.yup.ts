@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const locationSchema = yup.object().shape({
+export const locationSchema = yup.object().shape({
     address: yup.string(),
     landmark: yup.string(),
     city: yup.string(),
@@ -24,5 +24,6 @@ export const driverFirstUpdateschema = yup.object().shape({
         .min(11)
         .max(11),
     bank_: yup.array(bank_),
-    avatar: yup.mixed()
+    avatar: yup.mixed(),
+    driversLicense: yup.mixed()
 });

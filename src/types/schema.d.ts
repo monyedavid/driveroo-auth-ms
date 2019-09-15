@@ -93,8 +93,18 @@ register: IDefResponse;
 }
 
 interface IFirstUpdateOnMutationArguments {
-params: IUpDriverParams;
-mock: IMockSession;
+dob: string;
+mothers_maiden_name: string;
+primary_location: string;
+secondary_location: string;
+tertiary_location: string;
+bank_bvn: string;
+bank_?: Array<IUpDriverParamsBank | null> | null;
+avatar: any;
+driversLicense: any;
+driverLicenseNumber: string;
+id: string;
+token: string;
 }
 
 interface IAdminOnMutationArguments {
@@ -125,31 +135,10 @@ params: IRegParams;
 model: string;
 }
 
-interface IUpDriverParams {
-dob: string;
-mothers_maiden_name: string;
-primary_location: string;
-secondary_location: string;
-tertiary_location: string;
-bank_bvn: string;
-bank_?: Array<IUpDriverParamsBank | null> | null;
-avatar: any;
-driversLicense: any;
-driverLicenseNumber: string;
-}
-
 interface IUpDriverParamsBank {
 account_number?: string | null;
 account_name?: string | null;
 name?: string | null;
-}
-
-interface IMockSession {
-id: string;
-token: string;
-driversExt: string;
-avatarExt: string;
-andriod: string;
 }
 
 interface IDriverResponse {
@@ -240,6 +229,11 @@ mobile: string;
 gender?: string | null;
 }
 
+interface IMockSession {
+id: string;
+token: string;
+}
+
 interface IDuLocation {
 __typename: "du_Location";
 address: string | null;
@@ -261,6 +255,19 @@ country?: string | null;
 state: string;
 housenumber: string;
 street: string;
+}
+
+interface IUpDriverParams {
+dob: string;
+mothers_maiden_name: string;
+primary_location: string;
+secondary_location: string;
+tertiary_location: string;
+bank_bvn: string;
+bank_?: Array<IUpDriverParamsBank | null> | null;
+avatar: any;
+driversLicense: any;
+driverLicenseNumber: string;
 }
 
 interface IUserr {

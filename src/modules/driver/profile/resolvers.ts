@@ -9,11 +9,10 @@ export const resolvers: ResolverMap = {
     Mutation: {
         firstUpdate: async (
             _,
-            { params, mock }: GQL.IFirstUpdateOnMutationArguments,
+            args: GQL.IFirstUpdateOnMutationArguments,
             __
         ) => {
-            // console.log("mock data |", mock);
-            if (!mock.id) {
+            if (!args.id) {
                 return {
                     ok: false,
                     error: [
@@ -26,7 +25,21 @@ export const resolvers: ResolverMap = {
                 };
             }
 
-            return await new DriverProfile().firstUpdate(params, mock);
+            return await new DriverProfile().firstUpdate(
+                {
+                    dob: args.dob,
+                    mothers_maiden_name: args.mothers_maiden_name,
+                    primary_location: args.primary_location,
+                    secondary_location: args.secondary_location,
+                    tertiary_location: args.tertiary_location,
+                    bank_bvn: args.bank_bvn,
+                    bank_: args.bank_,
+                    avatar: args.avatar,
+                    driversLicense: args.driversLicense,
+                    driverLicenseNumber: args.driverLicenseNumber
+                },
+                { id: args.id, token: args.token }
+            );
         }
     }
 };
